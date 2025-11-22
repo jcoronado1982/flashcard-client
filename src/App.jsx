@@ -215,7 +215,7 @@ function App() {
                   isLoadingCategories={isLoading}
                   categories={categories}
                   onCategoryChange={handleCategoryChange}
-                  isCatalogVisible={isCatalogVisible}
+                  isCategorySelectorVisible={isCatalogVisible}
                   // Pasamos los estados y setters de los modales
                   isIpaModalOpen={isIpaModalOpen}
                   onCloseIpaModal={handleCloseIpaModal}
