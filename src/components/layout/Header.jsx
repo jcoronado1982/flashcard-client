@@ -25,11 +25,9 @@ const AppLogo = () => (
     </div>
 );
 
-// 2. Aceptamos las nuevas props (mensaje de app y selector de tono)
 export default function Header({
     isSidebarOpen,
     onMenuClick,
-    appMessage,
     toneOptions,
     selectedTone,
     onToneChange,
@@ -37,16 +35,6 @@ export default function Header({
     onOpenIpaModal,
     onOpenPhonicsModal
 }) {
-    // Helper para mostrar el mensaje de estado de la app
-    const AppMessageDisplay = ({ message }) => {
-        if (!message || !message.text) return <div className="app-message-placeholder" />;
-        return (
-            <div id="message" className={message.isError ? 'error-message' : 'info-message'}>
-                {message.text}
-            </div>
-        );
-    };
-
     // Estado local para el toggle manual del handle
     const [isManualOpen, setIsManualOpen] = React.useState(false);
 
@@ -62,10 +50,6 @@ export default function Header({
 
             {/* 3. El logo se mantiene a la izquierda */}
             <AppLogo />
-
-            <div className="app-message-wrapper">
-                <AppMessageDisplay message={appMessage} />
-            </div>
 
             <div className="header-controls">
                 <div className="tone-selector-wrapper">

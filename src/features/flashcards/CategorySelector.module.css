@@ -9,7 +9,34 @@
   overflow: visible;
   box-sizing: border-box;
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  color: #555;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.closeButton:hover {
+  background: #fff;
+  color: #333;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .cardContainer {

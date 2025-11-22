@@ -3,9 +3,14 @@
 .flashcardContainer {
     width: 95%;
     max-width: 620px;
-    height: 640px;
-    margin-bottom: 20px;
+    height: 600px;
     perspective: 1200px;
+}
+
+@media (max-width: 768px) {
+    .flashcardContainer {
+        height: 500px;
+    }
 }
 
 .card {
@@ -30,7 +35,7 @@
     backface-visibility: hidden;
     background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
     border-radius: 24px;
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -49,12 +54,14 @@
     overflow-y: auto;
 }
 
+/* --- Estilos Generales del Frente --- */
+
 .name {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 3.5em;
     font-weight: 800;
     color: #ffffff;
-    margin: 10px 0 10px 0;
+    margin: 0 0 10px 0;
     text-transform: capitalize;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -139,13 +146,13 @@
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #333;
+    color: #b8b8b8;
 }
 
 .allExamplesContainer li div span {
     transition: transform 0.05s ease;
     padding: 1px 0px;
-    color: #e0e0e0;
+    color: #f0f0f0;
     font-weight: 300;
     font-size: 1.3em;
     font-family: 'Inter', sans-serif;
@@ -154,10 +161,8 @@
 
 .imagePlaceholder {
     width: 100%;
-    height: 240px;
-    max-height: 40%;
+    max-height: 60%;
     margin-top: 0;
-    margin-bottom: 30px;
     border-radius: 16px;
     overflow: hidden;
     display: flex;
@@ -177,12 +182,9 @@
 }
 
 /* ------------------------------------------------------------------- */
-/* NUEVAS CLASES PARA GESTIÓN DE IMÁGENES (Subir/Eliminar) */
+/* CONTROLES DE IMÁGENES (Subir/Eliminar) */
 /* ------------------------------------------------------------------- */
 
-/* Contenedor de botones (necesario para la ubicación absoluta) */
-/* Este contenedor es esencial si quieres que ambos iconos se muestren */
-/* exactamente en el mismo lugar, ya que solo uno estará visible en el DOM */
 .imageControls {
     position: absolute;
     top: 10px;
@@ -190,7 +192,6 @@
     z-index: 50;
 }
 
-/* Clase base para SUBIR y ELIMINAR (comparte posicionamiento y dimensiones) */
 .imageControlBtn {
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
@@ -237,8 +238,8 @@
 /* ------------------------------------------------ */
 
 .noImagePlaceholderImg {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 100%;
+    max-height: 120%;
     object-fit: contain;
     opacity: 0.6;
     filter: grayscale(80%);
@@ -301,10 +302,16 @@
     transition: all 0.2s ease-out;
 }
 
+/* ------------------------------------------------------------------- */
+/* SECCIÓN CORREGIDA: ESTILOS DE LA PARTE TRASERA (DARK MODE) */
+/* ------------------------------------------------------------------- */
+
 .definitionBlockBack {
     text-align: center;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    /* Línea más sutil */
     padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .definitionBlockBack:last-child {
@@ -315,33 +322,79 @@
 .meaningSentence {
     font-size: 1.5em;
     font-weight: 400;
-    color: #333;
+    color: #f0f0f0;
+    /* Blanco para el texto principal */
     margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .phrasalVerbBack {
     font-weight: 700;
-    color: #007bff;
+    color: #4dabf7;
+    /* Azul claro brillante */
     text-transform: capitalize;
+    text-shadow: 0 0 10px rgba(77, 171, 247, 0.2);
 }
 
 .meaningBack {
     font-weight: 700;
-    color: #28a745;
+    color: #69db7c;
+    /* Verde claro brillante */
+    text-shadow: 0 0 10px rgba(105, 219, 124, 0.2);
 }
 
 .usageExampleEn {
     font-size: 1.4em;
-    color: #212529;
+    color: #ffffff;
+    /* Blanco puro para el inglés */
     font-style: italic;
     margin: 0 0 8px 0;
+    font-weight: 300;
+}
+
+.usageExampleEn strong {
+    color: #74c0fc;
+    /* Azul resaltado para palabras clave */
+    font-weight: 600;
 }
 
 .usageExampleEs {
     font-size: 1.1em;
-    color: #6c757d;
+    color: #a0a0a0;
+    /* Gris claro para español */
     margin: 0;
 }
+
+/* Bloque de Alternativa (She is nice and smart...) */
+.alternativeExample {
+    font-size: 1.2em;
+    font-style: normal;
+    color: #cccccc;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Fondo sutil para separar */
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.alternativeExample strong,
+.alternativeExample b {
+    color: #91a7ff;
+    /* Etiqueta "Alternativa" en azulado */
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.alternativeExample em {
+    font-weight: 400;
+    color: #ffffff;
+    /* Texto del ejemplo alternativo en blanco */
+    font-style: italic;
+}
+
+/* ------------------------------------------------------------------- */
 
 .phoneticContainer {
     display: flex;
@@ -375,35 +428,16 @@
     transform: scale(1.2);
 }
 
-.alternativeExample {
-    font-size: 1.3em;
-    font-style: italic;
-    color: #343a40;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-.alternativeExample em {
-    font-weight: 600;
-    color: #6c757d;
-    font-style: normal;
-}
-
-.usageExampleEn strong {
-    color: #0d6efd;
-    font-weight: 700;
-}
-
 .allExamplesContainer li div.blurredText {
     filter: blur(4px);
     transition: filter 0.3s ease-in-out;
     cursor: pointer;
     pointer-events: auto;
-    color: #666;
+    color: #b8b8b8;
 }
 
 .allExamplesContainer li div.blurredText span {
-    color: #666;
+    color: #b8b8b8;
 }
 
 .customTooltip {

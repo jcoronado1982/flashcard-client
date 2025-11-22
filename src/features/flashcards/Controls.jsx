@@ -1,12 +1,97 @@
 import React from 'react';
+import Select from 'react-select';
 import styles from './Controls.module.css'; // Importa el CSS Module
+
+// Custom styles for react-select to match our design
+const customSelectStyles = {
+    control: (provided, state) => ({
+        ...provided,
+        minHeight: '42px',
+        height: '42px',
+        borderRadius: '24px',
+        border: state.isFocused ? '1.5px solid #A0AEC0' : '1.5px solid #CBD5E0',
+        boxShadow: state.isFocused ? '0 4px 12px rgba(0, 0, 0, 0.1)' : '0 2px 6px rgba(0, 0, 0, 0.06)',
+        backgroundColor: '#ffffff',
+        cursor: 'pointer',
+        transition: 'all 0.25s ease',
+        '&:hover': {
+            borderColor: '#A0AEC0',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            transform: 'translateY(-1px)',
+        },
+    }),
+    valueContainer: (provided) => ({
+        ...provided,
+        height: '42px',
+        padding: '0 0 0 12px',
+    }),
+    input: (provided) => ({
+        ...provided,
+        margin: '0',
+        padding: '0',
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+    }),
+    indicatorSeparator: () => ({
+        display: 'none',
+    }),
+    indicatorsContainer: (provided) => ({
+        ...provided,
+        height: '42px',
+    }),
+    dropdownIndicator: (provided) => ({
+        ...provided,
+        color: '#4A5568',
+        padding: '0 12px',
+        '&:hover': {
+            color: '#0066CC',
+        },
+    }),
+    menu: (provided) => ({
+        ...provided,
+        borderRadius: '16px',
+        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+        border: '1px solid #E2E8F0',
+        overflow: 'hidden',
+        marginTop: '8px',
+    }),
+    menuList: (provided) => ({
+        ...provided,
+        padding: '8px',
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        backgroundColor: state.isSelected ? '#0066CC' : state.isFocused ? '#EBF4FF' : '#ffffff',
+        color: state.isSelected ? '#ffffff' : '#2D3748',
+        padding: '12px 16px',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        fontWeight: state.isSelected ? 600 : 500,
+        fontSize: '0.95em',
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        transition: 'all 0.2s ease',
+        '&:active': {
+            backgroundColor: state.isSelected ? '#0066CC' : '#D6E9FF',
+        },
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: '#2D3748',
+        fontWeight: 600,
+        fontSize: '0.95em',
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+    }),
+    placeholder: (provided) => ({
+        ...provided,
+        color: '#718096',
+        fontWeight: 500,
+        fontSize: '0.95em',
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+    }),
+};
 
 function Controls({
     onPrev, onNext, onMarkLearned, onReset,
     currentIndex, totalCards,
-    // --- ¡PROPS DE CATEGORÍA ELIMINADAS! ---
-    // categories, currentCategory, onCategoryChange
-    // ----------------------------------------
     deckNames,
     onDeckChange,
     currentDeckName,
@@ -15,15 +100,7 @@ function Controls({
 
     const isDisabled = totalCards === 0;
     const isBusy = isDisabled || isAudioLoading;
-    // --- ¡LÓGICA ACTUALIZADA! ---
     const isResetDisabled = isAudioLoading || !currentDeckName;
-
-    // --- HANDLER DE CATEGORÍA ELIMINADO ---
-    // const handleCategoryChange = ... (eliminado)
-
-    const handleDeckChange = (event) => {
-        onDeckChange(event.target.value);
-    };
 
     const formatName = (name) => {
         if (!name) return '';
@@ -31,11 +108,23 @@ function Controls({
         return spacedName.charAt(0).toUpperCase() + spacedName.slice(1);
     };
 
+    // Transform deckNames to react-select format
+    const deckOptions = deckNames.map(name => ({
+        value: name,
+        label: formatName(name),
+    }));
+
+    // Find the currently selected deck
+    const selectedDeck = deckOptions.find(opt => opt.value === currentDeckName);
+
+    const handleDeckChange = (option) => {
+        if (option && onDeckChange) {
+            onDeckChange(option.value);
+        }
+    };
+
     return (
         <div className={styles.controlsWrapper}>
-
-            {/* --- ¡SELECTOR DE CATEGORÍA ELIMINADO! --- */}
-            {/* El div que estaba aquí (líneas 67-86) ha sido eliminado. */}
 
             {/* --- SELECTOR DE DECK (AHORA ES EL PRIMERO) --- */}
             {/* --- CONTROLES SUPERIORES: DECK --- */}
@@ -44,26 +133,18 @@ function Controls({
                     <label htmlFor="deck-select" className={styles.deckSelectorLabel}>
                         Work:
                     </label>
-                    <select
-                        id="deck-select"
-                        onChange={handleDeckChange}
-                        value={currentDeckName || ''}
-                        className={styles.deckSelectDropdown}
-                        disabled={deckNames.length === 0 || isAudioLoading}
-                    >
-                        {/* Texto dinámico si no hay decks */}
-                        {deckNames.length === 0 && (
-                            <option value="" disabled>
-                                {/* ¡Lógica simplificada! */}
-                                {isAudioLoading ? 'Cargando...' : 'Seleccione...'}
-                            </option>
-                        )}
-                        {deckNames.map((name) => (
-                            <option key={name} value={name}>
-                                {formatName(name)}
-                            </option>
-                        ))}
-                    </select>
+                    <div style={{ minWidth: '200px' }}>
+                        <Select
+                            inputId="deck-select"
+                            value={selectedDeck}
+                            onChange={handleDeckChange}
+                            options={deckOptions}
+                            styles={customSelectStyles}
+                            isSearchable={false}
+                            isDisabled={deckNames.length === 0 || isAudioLoading}
+                            placeholder={isAudioLoading ? 'Cargando...' : 'Seleccione...'}
+                        />
+                    </div>
                 </div>
             </div>
 

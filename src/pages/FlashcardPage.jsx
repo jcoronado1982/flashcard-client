@@ -36,7 +36,8 @@ export default function FlashcardPage({
     onOpenPhonicsModal,
 
     // Props de UI (Lifted State)
-    isCategorySelectorVisible
+    isCategorySelectorVisible,
+    onCloseCategorySelector
 }) {
 
     // --- ESTADOS LOCALES (Solo para decks y tarjetas) ---
@@ -268,13 +269,8 @@ export default function FlashcardPage({
     const handleReset = useCallback(async () => {
         if (!currentCategory || !currentDeckName) return;
 
-        // --- ¡CAMBIO 5: Reemplazar window.confirm! ---
-        // window.confirm no es fiable en todos los entornos (como este).
-        // Usamos prompt como una alternativa simple que sí funciona.
-        const confirmation = prompt(`Escribe 'RESET' para confirmar que quieres resetear el progreso de '${currentDeckName}'.`);
-
-        if (confirmation === 'RESET') {
-            // if (window.confirm(`¿Estás seguro de que quieres resetear el progreso de '${currentDeckName}'?`)) {
+        // Usar window.confirm para confirmación más simple
+        if (window.confirm(`¿Estás seguro de que quieres resetear el progreso de '${currentDeckName}'?`)) {
             try {
                 setAppMessage({ text: 'Reseteando...', isError: false });
                 const response = await fetch(`${API_URL}/api/reset-all`, {
@@ -367,6 +363,7 @@ export default function FlashcardPage({
                     currentCategory={currentCategory}
                     onCategoryChange={onCategoryChange}
                     isDisabled={isAudioLoading}
+                    onClose={onCloseCategorySelector}
                 />
             )}
 
@@ -404,6 +401,22 @@ export default function FlashcardPage({
                                 selectedTone={selectedTone}
                             />
                         )
+                    )}
+
+                    {/* Mensaje de estado debajo de la flashcard y encima de la lista */}
+                    {appMessage && appMessage.text && (
+                        <div id="message" className={appMessage.isError ? 'error-message' : 'info-message'} style={{
+                            margin: '16px auto 10px auto',
+                            maxWidth: '600px',
+                            textAlign: 'center',
+                            padding: '10px',
+                            backgroundColor: appMessage.isError ? '#FEE' : '#E3F2FD',
+                            borderRadius: '8px',
+                            fontSize: '0.95em',
+                            fontWeight: '500'
+                        }}>
+                            {appMessage.text}
+                        </div>
                     )}
 
                     <Controls

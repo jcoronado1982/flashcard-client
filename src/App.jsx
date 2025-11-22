@@ -189,7 +189,6 @@ function App() {
         <Header
           isSidebarOpen={isSidebarOpen} // Pasamos el estado para mantener la barra visible
           onMenuClick={toggleSidebar}
-          appMessage={appMessage}
           // Props para ToneSelector
           toneOptions={toneOptions}
           selectedTone={selectedTone}
@@ -216,6 +215,7 @@ function App() {
                   categories={categories}
                   onCategoryChange={handleCategoryChange}
                   isCategorySelectorVisible={isCatalogVisible}
+                  onCloseCategorySelector={() => setIsCatalogVisible(false)}
                   // Pasamos los estados y setters de los modales
                   isIpaModalOpen={isIpaModalOpen}
                   onCloseIpaModal={handleCloseIpaModal}

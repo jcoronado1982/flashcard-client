@@ -82,7 +82,7 @@ const formatName = (name) => {
   return spacedName.charAt(0).toUpperCase() + spacedName.slice(1);
 };
 
-function CategorySelector({ categories, currentCategory, onCategoryChange, isDisabled }) {
+function CategorySelector({ categories, currentCategory, onCategoryChange, isDisabled, onClose }) {
   const scrollRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -188,6 +188,9 @@ function CategorySelector({ categories, currentCategory, onCategoryChange, isDis
 
   return (
     <div className={styles.categoryDeck}>
+      <button className={styles.closeButton} onClick={onClose} title="Cerrar categorías">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
       <div className={styles.cardContainer} ref={scrollRef}>
         {categories.map((category) => {
           const normalized = normalize(category);

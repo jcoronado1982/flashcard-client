@@ -23,8 +23,8 @@ export default function Sidebar({ isOpen }) {
                     {/* 1. Item Principal: Flashcards (Expandible) - ¡Debe ir PRIMERO! */}
                     <li className="parentItem">
                         {/* Usa div para el padre. Se activa si alguna ruta de flashcard lo está. */}
-                        <div className={`parentLink ${isFlashcardsPath ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 20px', color: '#4A5568', fontWeight: '600' }}>
-                            <FiLayers size={20} /> Flashcards
+                        <div className={`parentLink ${isFlashcardsPath ? 'active' : ''}`}>
+                            <FiLayers /> Flashcards
                         </div>
 
                         {/* Subcategorías de Flashcards: Card y Test */}
@@ -34,7 +34,6 @@ export default function Sidebar({ isOpen }) {
                                     to="/flashcard"
                                     // La opción Card se activa si la ruta es /flashcard o /flashcard/card
                                     className={({ isActive }) => isActive || location.pathname === '/flashcard/card' ? 'nav-link active' : 'nav-link'}
-                                    style={{ paddingLeft: '40px' }} // Add indentation for hierarchy
                                     end
                                 >
                                     <FiCreditCard /> Card
