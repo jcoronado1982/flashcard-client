@@ -1,22 +1,22 @@
 import React from 'react';
 import styles from './Controls.module.css'; // Importa el CSS Module
 
-function Controls({ 
-    onPrev, onNext, onMarkLearned, onReset, 
-    currentIndex, totalCards, 
+function Controls({
+    onPrev, onNext, onMarkLearned, onReset,
+    currentIndex, totalCards,
     // --- ¡PROPS DE CATEGORÍA ELIMINADAS! ---
     // categories, currentCategory, onCategoryChange
     // ----------------------------------------
-    deckNames, 
-    onDeckChange, 
+    deckNames,
+    onDeckChange,
     currentDeckName,
     isAudioLoading
 }) {
-    
+
     const isDisabled = totalCards === 0;
     const isBusy = isDisabled || isAudioLoading;
     // --- ¡LÓGICA ACTUALIZADA! ---
-    const isResetDisabled = isAudioLoading || !currentDeckName; 
+    const isResetDisabled = isAudioLoading || !currentDeckName;
 
     // --- HANDLER DE CATEGORÍA ELIMINADO ---
     // const handleCategoryChange = ... (eliminado)
@@ -27,41 +27,44 @@ function Controls({
 
     const formatName = (name) => {
         if (!name) return '';
-        const spacedName = name.replace(/[_-]/g, ' '); 
+        const spacedName = name.replace(/[_-]/g, ' ');
         return spacedName.charAt(0).toUpperCase() + spacedName.slice(1);
     };
 
     return (
         <div className={styles.controlsWrapper}>
-            
+
             {/* --- ¡SELECTOR DE CATEGORÍA ELIMINADO! --- */}
             {/* El div que estaba aquí (líneas 67-86) ha sido eliminado. */}
 
             {/* --- SELECTOR DE DECK (AHORA ES EL PRIMERO) --- */}
-            <div className={styles.deckSelectorContainer}>
-                <label htmlFor="deck-select" className={styles.deckSelectorLabel}>
-                    Work:
-                </label>
-                <select
-                    id="deck-select"
-                    onChange={handleDeckChange}
-                    value={currentDeckName || ''}
-                    className={styles.deckSelectDropdown}
-                    disabled={deckNames.length === 0 || isAudioLoading}
-                >
-                    {/* Texto dinámico si no hay decks */}
-                    {deckNames.length === 0 && (
-                        <option value="" disabled>
-                            {/* ¡Lógica simplificada! */}
-                            {isAudioLoading ? 'Cargando...' : 'Seleccione...'}
-                        </option>
-                    )}
-                    {deckNames.map((name) => (
-                        <option key={name} value={name}>
-                            {formatName(name)}
-                        </option>
-                    ))}
-                </select>
+            {/* --- CONTROLES SUPERIORES: DECK --- */}
+            <div className={styles.topControls}>
+                <div className={styles.deckSelectorContainer}>
+                    <label htmlFor="deck-select" className={styles.deckSelectorLabel}>
+                        Work:
+                    </label>
+                    <select
+                        id="deck-select"
+                        onChange={handleDeckChange}
+                        value={currentDeckName || ''}
+                        className={styles.deckSelectDropdown}
+                        disabled={deckNames.length === 0 || isAudioLoading}
+                    >
+                        {/* Texto dinámico si no hay decks */}
+                        {deckNames.length === 0 && (
+                            <option value="" disabled>
+                                {/* ¡Lógica simplificada! */}
+                                {isAudioLoading ? 'Cargando...' : 'Seleccione...'}
+                            </option>
+                        )}
+                        {deckNames.map((name) => (
+                            <option key={name} value={name}>
+                                {formatName(name)}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
 
             {/* --- CONTROLES (SIN CAMBIOS) --- */}

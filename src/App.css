@@ -3,30 +3,35 @@
  * --- (Controlan el Sidebar y el Contenido Principal) ---
  --- */
 
-.app-layout {
-  /* No necesita estilos, es solo un wrapper */
-}
 
 .main-content {
-  flex-grow: 1;
-  /* Por defecto, sin margen, para cuando el sidebar está cerrado */
-  margin-left: 0; 
-  transition: margin-left 0.3s ease;
-  /* El fondo que tenías, ahora aplicado al área de contenido */
-  background: #EBF4FF; 
-  min-height: 100vh;
+    flex-grow: 1;
+    /* Por defecto, sin margen, para cuando el sidebar está cerrado */
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+    /* El fondo que tenías, ahora aplicado al área de contenido */
+    background: #EBF4FF;
+    /* Restoring solid blue background */
+    min-height: 100vh;
+    position: relative;
+    /* For absolute header */
+}
+
+.page-content {
+    transition: padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 4px;
+    /* Initial peek space */
 }
 
 /* Cuando el sidebar está abierto, empuja el contenido */
 .main-content.sidebar-open {
-  margin-left: 260px; /* Ancho del sidebar (definido en Layout.css) */
+    margin-left: 260px;
+    /* Ancho del sidebar (definido en Layout.css) */
 }
 
-.page-content {
-  /* No necesita padding superior, porque el Header
+/* No necesita padding superior, porque el Header
    * (que está dentro de .main-content) usa position: sticky
    */
-}
 
 
 /* ---
@@ -40,16 +45,17 @@
     justify-content: center;
     align-items: center;
     /* height: 100vh; <-- ¡ELIMINADO! Esto ahora lo maneja .main-content */
-    position: relative; 
+    position: relative;
     /* background: ... <-- ¡ELIMINADO! Movido a .main-content */
-    overflow: hidden; 
+    /* overflow: hidden; <-- REMOVED to prevent layout clipping/stickiness issues */
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px 20px 20px;
+    /* Increased top padding */
     box-sizing: border-box;
-    /* Ocupa al menos la altura de la página (viewport menos el header de 60px) */
-    min-height: calc(100vh - 60px); 
+    /* Ocupa al menos la altura de la página (viewport menos el header de 80px) */
+    min-height: calc(100vh - 80px);
 }
 
 /* --- FLASHCARD CENTRADA (Sin Cambios) --- */
@@ -67,7 +73,7 @@
 .category-selector-wrapper {
     position: absolute;
     /* ¡MODIFICADO! Ajustado para el header de 60px + 20px de padding */
-    top: 80px; 
+    top: 80px;
     left: 20px;
     width: 400px;
     max-height: 60vh;
@@ -82,6 +88,7 @@
 .category-selector-wrapper::-webkit-scrollbar {
     width: 6px;
 }
+
 .category-selector-wrapper::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
@@ -111,24 +118,71 @@
 
 /* --- IDs para Posicionamiento Botones IPA (Sin Cambios) --- */
 /* (Se mantienen igual, ya que son relativos al modal) */
-#ipa-i-long   { top: 13px; left: 40px; }
-#ipa-i-short { top: 60px; left: 130px; }
-#ipa-e       { top: 224px; left: 180px; }
-#ipa-ae      { top: 328px; left: 248px; }
-#ipa-schwa   { top: 165px; left: 300px; }
-#ipa-uh      { top: 224px; left: 354px; }
-#ipa-a-long   { top: 330px; left: 460px; }
-#ipa-o-long   { top: 164px; left: 462px; }
-#ipa-u-short { top: 60px; left: 410px; }
-#ipa-u-long   { top: 13px; left: 462px; }
-#ipa-o-short { top: 330px; left: 400px; }
-#ipa-er      { top: 224px; left: 318px; }
+#ipa-i-long {
+    top: 13px;
+    left: 40px;
+}
+
+#ipa-i-short {
+    top: 60px;
+    left: 130px;
+}
+
+#ipa-e {
+    top: 224px;
+    left: 180px;
+}
+
+#ipa-ae {
+    top: 328px;
+    left: 248px;
+}
+
+#ipa-schwa {
+    top: 165px;
+    left: 300px;
+}
+
+#ipa-uh {
+    top: 224px;
+    left: 354px;
+}
+
+#ipa-a-long {
+    top: 330px;
+    left: 460px;
+}
+
+#ipa-o-long {
+    top: 164px;
+    left: 462px;
+}
+
+#ipa-u-short {
+    top: 60px;
+    left: 410px;
+}
+
+#ipa-u-long {
+    top: 13px;
+    left: 462px;
+}
+
+#ipa-o-short {
+    top: 330px;
+    left: 400px;
+}
+
+#ipa-er {
+    top: 224px;
+    left: 318px;
+}
 
 /* --- CONTENEDOR DE ENLACES DE AYUDA (MODIFICADO) --- */
 .links-container {
     position: absolute;
     /* ¡MODIFICADO! Ajustado para el header de 60px + 20px de padding */
-    top: 80px; 
+    top: 80px;
     right: 20px;
     z-index: 40;
     display: flex;
@@ -147,14 +201,15 @@
     background-color: rgba(255, 255, 255, 0.9);
     padding: 5px 10px;
     border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
     white-space: nowrap;
 }
+
 .tutorial-link:hover {
     color: #0056b3;
     text-decoration: underline;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* --- SPINNER DE CARGA (Sin Cambios) --- */
@@ -164,9 +219,9 @@
     align-items: center;
     height: 400px;
 }
+
 .loading-container img {
     width: 80px;
     height: 80px;
     opacity: 0.8;
 }
-
