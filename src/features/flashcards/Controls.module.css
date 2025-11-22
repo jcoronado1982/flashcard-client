@@ -2,13 +2,13 @@
 
 .controlsWrapper {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    gap: 10px; 
-    margin-top: 10px; 
+    gap: 10px;
+    margin-top: 10px;
     width: 100%;
     max-width: 600px;
-    padding: 0 10px; 
+    padding: 0 10px;
     box-sizing: border-box;
 }
 
@@ -16,45 +16,47 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 .deckSelectorLabel {
     font-size: 1.1em;
     font-weight: 500;
     color: #333;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
 .deckSelectDropdown {
-    padding: 10px 35px 10px 15px;
-    border: 2px solid #838b9d;
-    border-radius: 12px;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #838b9d;
+    padding: 11px 40px 11px 16px;
+    border: 1.5px solid #CBD5E0;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    color: #4A5568;
     background-color: #ffffff;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%230066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
     background-repeat: no-repeat;
-    background-position: right 10px center;
-    min-width: 150px;
-    text-align: center;
+    background-position: right 12px center;
+    min-width: 140px;
+    text-align: left;
 }
 
 .deckSelectDropdown:hover {
-    border-color: #0056b3;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    border-color: #0066CC;
+    box-shadow: 0 3px 10px rgba(0, 102, 204, 0.12);
+    color: #2D3748;
 }
 
 .deckSelectDropdown:focus {
     outline: none;
-    border-color: #0056b3;
+    border-color: #0066CC;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
 .deckSelectDropdown option {
@@ -73,125 +75,134 @@
 
 /* Base styles for navigation buttons */
 .nav {
-    /* 🚀 CAMBIO: Botones de navegación a 48px */
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     padding: 0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    border: 1.5px solid #E2E8F0;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .nav:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
 }
 
 .nav:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    transform: none; 
-}
-
-/* Specific styles using composes */
-.prevCardBtn {
-    composes: nav; 
-    background-color: #fff;
-    border: 1px solid #ddd;
-}
-
-.prevCardBtn svg {
-    stroke: #333;
-}
-
-.nextCardBtn {
-    composes: nav; 
-    background-color: #838b9d;
-}
-
-.nextCardBtn svg {
-    stroke: white;
-}
-.prevCardBtn:hover:not(:disabled) {
-    background-color: #007bff; 
-    border-color: #007bff;
-}
-
-.prevCardBtn:hover:not(:disabled) svg {
-    stroke: #ffffff;
-}
-.nextCardBtn:hover:not(:disabled) {
-    background-color: #007bff;
-}
-/* --- Action Buttons --- */
-.actionBtn { 
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    /* 🚀 CAMBIO: Botones de acción a 48px */
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    padding: 0; 
-}
-
-.actionBtn:hover:not(:disabled) { 
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.actionBtn:active:not(:disabled) { 
-    transform: scale(0.95);
-}
-
-.actionBtn:disabled { 
     cursor: not-allowed;
     opacity: 0.5;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transform: none;
 }
 
+/* Specific styles using composes */
+.prevCardBtn {
+    composes: nav;
+    background-color: #ffffff;
+}
 
-.resetButton { 
+.prevCardBtn svg {
+    stroke: #718096;
+}
+
+.nextCardBtn {
+    composes: nav;
+    background-color: #718096;
+}
+
+.nextCardBtn svg {
+    stroke: white;
+}
+
+.prevCardBtn:hover:not(:disabled) {
+    background-color: #0066CC;
+    border-color: #0066CC;
+}
+
+.prevCardBtn:hover:not(:disabled) svg {
+    stroke: #ffffff;
+}
+
+.nextCardBtn:hover:not(:disabled) {
+    background-color: #0066CC;
+}
+
+/* --- Action Buttons --- */
+.actionBtn {
+    background-color: #ffffff;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.actionBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.actionBtn:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+.actionBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transform: none;
+}
+
+
+.resetButton {
     composes: actionBtn;
-    border-color: #ff4757;
+    border-color: #FCA5A5;
 }
 
 .resetButton svg {
-    stroke: #ff4757;
-    width: 24px; 
-    height: 24px;
+    stroke: #EF4444;
+    width: 22px;
+    height: 22px;
 }
 
-.correctButton { 
+.resetButton:hover:not(:disabled) {
+    background-color: #FEF2F2;
+    border-color: #EF4444;
+}
+
+.correctButton {
     composes: actionBtn;
-    border-color: #28a745;
+    border-color: #86EFAC;
 }
 
 .correctButton svg {
-    stroke: #28a745;
-    width: 28px; 
-    height: 28px;
+    stroke: #10B981;
+    width: 26px;
+    height: 26px;
 }
 
-.cardCounter { 
-    font-size: 1.4em;
-    font-weight: 700;
-    color: #333;
+.correctButton:hover:not(:disabled) {
+    background-color: #F0FDF4;
+    border-color: #10B981;
+}
+
+.cardCounter {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #2D3748;
     margin: 0;
     min-width: 60px;
     text-align: center;
-    /* 🚀 CAMBIO: Ajustamos line-height a 48px (el nuevo tamaño del botón) */
-    line-height: 48px; 
+    line-height: 46px;
 }

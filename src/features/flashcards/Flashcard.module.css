@@ -1,21 +1,162 @@
 /* src/features/flashcards/Flashcard.module.css */
 
-.flashcardContainer { width: 95%; max-width: 600px; height: 630px; margin-bottom: 20px; perspective: 1200px; }
-.card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); border-radius: 20px; }
-.flipped { transform: rotateY(180deg); }
-.cardFront, .cardBack { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background-color: #ffffff; border-radius: 20px; padding: 30px 30px 20px 30px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden; border: 0px; }
-.cardBack { transform: rotateY(180deg); justify-content: flex-start; padding-top: 20px; overflow-y: auto; }
-.name { font-size: 2.5em; font-weight: 900; color: #007bff; margin: 0px 0 0px 0; text-transform: capitalize; }
-.phonetic { font-size: 1.4em; color: #6c757d; margin: 2px 0 5px 0; }
-.allExamplesContainer { width: 100%; text-align: left; flex-grow: 0; flex-shrink: 0; overflow-y: hidden; margin-bottom: 0; padding-bottom: 40px; }
-.allExamplesContainer ul { list-style-type: none; padding: 0; margin: 0; }
-.allExamplesContainer li { display: flex; align-items: flex-start; margin-bottom: 15px; padding: 0; border-radius: 10px; transition: background-color 0.3s ease; position: relative; }
-.allExamplesContainer li:last-child { margin-bottom: 0; }
-.allExamplesContainer li button { background-color: #E6F0FF; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.3em; cursor: pointer; flex-shrink: 0; margin-right: 15px; display: flex; align-items: center; justify-content: center; margin-top: 3px; }
-.allExamplesContainer li div { line-height: 1.2; font-size: 1.3em; white-space: normal; overflow: hidden; text-overflow: ellipsis; }
-.allExamplesContainer li div span { transition: transform 0.05s ease; padding: 1px 0px; color: #333; font-weight: 500; font-size: 1.4em; }
+.flashcardContainer {
+    width: 95%;
+    max-width: 620px;
+    height: 640px;
+    margin-bottom: 20px;
+    perspective: 1200px;
+}
 
-.imagePlaceholder { width: 100%; flex-grow: 1; min-height: 200px; margin-top: auto; border-radius: 15px; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #e9ecef; position: relative; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, #F7F5F0 0%, #FDFCFA 100%);
+    border-radius: 20px;
+    padding: 32px 32px 24px 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.cardBack {
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+.name {
+    font-size: 2.8em;
+    font-weight: 800;
+    color: #0066CC;
+    margin: 4px 0 6px 0;
+    text-transform: capitalize;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0, 102, 204, 0.1);
+}
+
+.phonetic {
+    font-size: 1.35em;
+    color: #718096;
+    margin: 0px 0 20px 0;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    font-family: 'Courier New', monospace;
+}
+
+.allExamplesContainer {
+    width: 100%;
+    text-align: left;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow-y: hidden;
+    margin-bottom: 0;
+    padding-bottom: 40px;
+}
+
+.allExamplesContainer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.allExamplesContainer li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 0;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.allExamplesContainer li:last-child {
+    margin-bottom: 0;
+}
+
+.allExamplesContainer li button {
+    background: #ffffff;
+    border: 1.5px solid #CBD5E0;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 1em;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+    transition: all 0.2s ease;
+    color: #718096;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.allExamplesContainer li button:hover {
+    background: #0066CC;
+    border-color: #0066CC;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+}
+
+.allExamplesContainer li div {
+    line-height: 1.4;
+    font-size: 1.25em;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333;
+}
+
+.allExamplesContainer li div span {
+    transition: transform 0.05s ease;
+    padding: 1px 0px;
+    color: #2D3748;
+    font-weight: 500;
+    font-size: 1.35em;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    height: 240px;
+    max-height: 42%;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
 
 /* ------------------------------------------------------------------- */
 /* NUEVAS CLASES PARA GESTIÓN DE IMÁGENES (Subir/Eliminar) */
@@ -24,48 +165,313 @@
 /* Contenedor de botones (necesario para la ubicación absoluta) */
 /* Este contenedor es esencial si quieres que ambos iconos se muestren */
 /* exactamente en el mismo lugar, ya que solo uno estará visible en el DOM */
-.imageControls { position: absolute; top: 10px; right: 10px; z-index: 50; }
+.imageControls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 50;
+}
 
 /* Clase base para SUBIR y ELIMINAR (comparte posicionamiento y dimensiones) */
-.imageControlBtn { background-color: transparent; color: white; border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: all 0.2s ease; padding: 0; transform: scale(0.9); opacity: 0.3; }
+.imageControlBtn {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #4A5568;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    padding: 0;
+}
 
-/* 1. Estilos para el botón de ELIMINAR */
-.deleteImageBtn { background-color: rgba(255, 60, 60, 0.3); }
+.deleteImageBtn {
+    color: #E53E3E;
+}
 
-/* 2. Estilos para el botón de SUBIR (Debe ocupar la misma posición y tener hover similar) */
-.uploadImageBtn { background-color: rgba(0, 123, 255, 0.3); color: white; }
+.uploadImageBtn {
+    color: #0066CC;
+}
 
-.imageControlBtn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); opacity: 1; }
+.imageControlBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
 
-.deleteImageBtn:hover { background-color: rgb(255, 60, 60); }
+.deleteImageBtn:hover {
+    background-color: #FFF5F5;
+    color: #C53030;
+}
 
-.uploadImageBtn:hover { background-color: rgb(0, 123, 255); }
+.uploadImageBtn:hover {
+    background-color: #EBF8FF;
+    color: #0052A3;
+}
 
 
 /* ------------------------------------------------ */
 
-.noImagePlaceholderImg { max-width: 80%; max-height: 80%; object-fit: contain; opacity: 0.6; filter: grayscale(80%); transition: opacity 0.3s ease, filter 0.3s ease; }
-.image { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; }
-.imageVisible { opacity: 1; }
-.soundButton { padding: 10px; font-size: 1em; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); z-index: 10; position: absolute; background-color: #ffffff; transition: all 0.2s; top: 20px; right: 20px; color: #007bff; }
-.highlightedWord { background-color: #FFC107; color: #333333; font-weight: 900; font-size: 1.25em; text-shadow: none; transform: scale(1.05); display: inline-block; padding: 7px 7px !important; margin: 0 3px; border-radius: 4px; transition: all 0.2s ease-out; }
-.definitionBlockBack { text-align: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 20px; }
-.definitionBlockBack:last-child { border-bottom: none; margin-bottom: 0; }
-.meaningSentence { font-size: 1.5em; font-weight: 400; color: #333; margin-bottom: 15px; }
-.phrasalVerbBack { font-weight: 700; color: #007bff; text-transform: capitalize; }
-.meaningBack { font-weight: 700; color: #28a745; }
-.usageExampleEn { font-size: 1.4em; color: #212529; font-style: italic; margin: 0 0 8px 0; }
-.usageExampleEs { font-size: 1.1em; color: #6c757d; margin: 0; }
-.phoneticContainer { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
-.phoneticContainer .phonetic { margin: 0; }
-.ipaChartBtn { background-color: transparent; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.3em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; color: #838b9d; }
-.ipaChartBtn:hover { background-color: #d0e8ff; transform: scale(1.2); }
-.alternativeExample { font-size: 1.3em; font-style: italic; color: #343a40; margin-top: 12px; margin-bottom: 12px; }
-.alternativeExample em { font-weight: 600; color: #6c757d; font-style: normal; }
-.usageExampleEn strong { color: #0d6efd; font-weight: 700; }
+.noImagePlaceholderImg {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    opacity: 0.6;
+    filter: grayscale(80%);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
 
-.allExamplesContainer li div.blurredText { filter: blur(4px); transition: filter 0.3s ease-in-out; cursor: pointer; pointer-events: auto; color: #666; }
-.allExamplesContainer li div.blurredText span { color: #666; }
-.customTooltip { visibility: hidden; opacity: 0; background-color: #333; color: #fff; font-size: 1.1em; text-align: center; border-radius: 6px; padding: 8px 12px; white-space: nowrap; position: absolute; z-index: 1000; top: 100%; left: 40%; transform: translateX(-50%); margin-top: 4px; transition: opacity 0.3s ease; }
-.allExamplesContainer li div:hover ~ .customTooltip { visibility: visible; opacity: 1; }
-.allExamplesContainer li:hover { z-index: 20; }
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.imageVisible {
+    opacity: 1;
+}
+
+.soundButton {
+    padding: 12px;
+    font-size: 1.3em;
+    border: 2px solid #0066CC;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+    z-index: 10;
+    position: absolute;
+    background-color: #ffffff;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    top: 20px;
+    right: 20px;
+    color: #0066CC;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.soundButton:hover {
+    background-color: #0066CC;
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3);
+}
+
+.highlightedWord {
+    background-color: #FFC107;
+    color: #333333;
+    font-weight: 900;
+    font-size: 1.25em;
+    text-shadow: none;
+    transform: scale(1.05);
+    display: inline-block;
+    padding: 7px 7px !important;
+    margin: 0 3px;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
+}
+
+.definitionBlockBack {
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+.definitionBlockBack:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.meaningSentence {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.phrasalVerbBack {
+    font-weight: 700;
+    color: #007bff;
+    text-transform: capitalize;
+}
+
+.meaningBack {
+    font-weight: 700;
+    color: #28a745;
+}
+
+.usageExampleEn {
+    font-size: 1.4em;
+    color: #212529;
+    font-style: italic;
+    margin: 0 0 8px 0;
+}
+
+.usageExampleEs {
+    font-size: 1.1em;
+    color: #6c757d;
+    margin: 0;
+}
+
+.phoneticContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.phoneticContainer .phonetic {
+    margin: 0;
+}
+
+.ipaChartBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.3em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    color: #838b9d;
+}
+
+.ipaChartBtn:hover {
+    background-color: #d0e8ff;
+    transform: scale(1.2);
+}
+
+.alternativeExample {
+    font-size: 1.3em;
+    font-style: italic;
+    color: #343a40;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.alternativeExample em {
+    font-weight: 600;
+    color: #6c757d;
+    font-style: normal;
+}
+
+.usageExampleEn strong {
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+.allExamplesContainer li div.blurredText {
+    filter: blur(4px);
+    transition: filter 0.3s ease-in-out;
+    cursor: pointer;
+    pointer-events: auto;
+    color: #666;
+}
+
+.allExamplesContainer li div.blurredText span {
+    color: #666;
+}
+
+.customTooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #333;
+    color: #fff;
+    font-size: 1.1em;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 1000;
+    top: 100%;
+    left: 40%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+    transition: opacity 0.3s ease;
+}
+
+.allExamplesContainer li div:hover~.customTooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.allExamplesContainer li:hover {
+    z-index: 20;
+}
+
+/* --- MTG Card Specific Styles --- */
+
+.mtgArtImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mtgTextList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.mtgTextList li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    gap: 8px;
+}
+
+.mtgAudioBtnSmall {
+    background: none;
+    border: 1px solid #999;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.7em;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.mtgAudioBtnSmall:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.soundButtonMtg {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.soundButtonMtg:hover {
+    color: #000;
+    transform: scale(1.1);
+}

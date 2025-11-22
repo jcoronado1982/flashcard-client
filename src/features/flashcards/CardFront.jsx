@@ -1,10 +1,9 @@
-// src/features/flashcards/CardFront.jsx
-
 import React, { useRef, useState } from 'react'; // <-- AGREGAMOS useState aquí
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
 // 🚀 Importamos los iconos necesarios, incluyendo FaUpload
 import { FaHeadphones, FaTimes, FaUpload } from 'react-icons/fa'; // <-- Importamos FaUpload
+import MTGCard from '../../components/MTGCard';
 
 function CardFront({
     cardData,
@@ -19,16 +18,16 @@ function CardFront({
     imageRef,
     displayImageForIndex,
     // --- ¡NUEVAS PROPS RECIBIDAS! ---
-    deleteImage, 
+    deleteImage,
     uploadImage // <-- ¡Recibimos la nueva función!
 }) {
     // Necesitamos este estado para manejar si el archivo se está procesando
-    const [isUploading, setIsUploading] = useState(false); 
+    const [isUploading, setIsUploading] = useState(false);
     const uploadInputRef = useRef(null);
 
     // Determinar si mostrar la imagen (y sus controles)
     const showImage = imageUrl && !isImageLoading && !isUploading; // No mostrar controles si estamos subiendo
-    
+
     // Handler para cuando el usuario selecciona un archivo
     const handleFileChange = async (e) => {
         e.stopPropagation();
@@ -42,9 +41,9 @@ function CardFront({
             }
         }
         // Resetear el valor del input para permitir la subida del mismo archivo otra vez
-        e.target.value = null; 
+        e.target.value = null;
     };
-    
+
     // Deshabilitar botones si hay carga de IA o estamos subiendo
     const isDisabled = isImageLoading || isUploading;
 
@@ -58,14 +57,14 @@ function CardFront({
 
     return (
         <div className={styles.cardFront}>
-            
+
             {/* Botón de sonido principal (altavoz grande) */}
             <button
                 className={styles.soundButton}
                 onClick={(e) => {
                     e.stopPropagation();
                     playAudio(cardData.name);
-                    displayImageForIndex(0); 
+                    displayImageForIndex(0);
                 }}
                 disabled={isDisabled}
             >
@@ -73,7 +72,7 @@ function CardFront({
             </button>
 
             <h2 className={styles.name}>
-                <HighlightedText 
+                <HighlightedText
                     text={cardData.name}
                     activeAudioText={activeAudioText}
                     highlightedWordIndex={highlightedWordIndex}
@@ -83,13 +82,13 @@ function CardFront({
             {/* Contenedor de Fonética */}
             <div className={styles.phoneticContainer}>
                 <p className={styles.phonetic}>{cardData.phonetic}</p>
-                
+
                 {/* 🎧 Botón de la tabla IPA */}
                 <button
                     className={styles.ipaChartBtn}
                     onClick={(e) => {
                         e.stopPropagation();
-                        onOpenIpaModal(); 
+                        onOpenIpaModal();
                     }}
                     disabled={isDisabled}
                 >
@@ -118,7 +117,7 @@ function CardFront({
                                     toggleBlur(di);
                                 }}
                             >
-                                <HighlightedText 
+                                <HighlightedText
                                     text={def.usage_example}
                                     activeAudioText={activeAudioText}
                                     highlightedWordIndex={highlightedWordIndex}
@@ -136,26 +135,26 @@ function CardFront({
 
             {/* --- Lógica de Imagen y Botones de Control --- */}
             <div className={styles.imagePlaceholder}>
-                
+
                 {/* Contenedor de botones de gestión de imagen (Subir/Eliminar) */}
                 <div className={styles.imageControls}>
 
                     {/* Input de archivo oculto */}
-                    <input 
-                        type="file" 
-                        ref={uploadInputRef} 
-                        onChange={handleFileChange} 
-                        style={{ display: 'none' }} 
+                    <input
+                        type="file"
+                        ref={uploadInputRef}
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
                         accept="image/*"
                         disabled={isDisabled}
-                        onClick={(e) => e.stopPropagation()} 
+                        onClick={(e) => e.stopPropagation()}
                     />
 
                     {/* ✅ LÓGICA CONDICIONAL CLAVE: Mostrar Borrar O Subir en la misma posición */}
                     {showImage ? (
                         // MOSTRAR BOTÓN DE BORRAR (FaTimes) si hay imagen visible
-                        <button 
-                            className={`${styles.imageControlBtn} ${styles.deleteImageBtn}`} 
+                        <button
+                            className={`${styles.imageControlBtn} ${styles.deleteImageBtn}`}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 deleteImage();
@@ -167,8 +166,8 @@ function CardFront({
                         </button>
                     ) : (
                         // MOSTRAR BOTÓN DE SUBIR (FaUpload) si NO hay imagen visible
-                        <button 
-                            className={`${styles.imageControlBtn} ${styles.uploadImageBtn}`} 
+                        <button
+                            className={`${styles.imageControlBtn} ${styles.uploadImageBtn}`}
                             onClick={triggerUpload}
                             title="Subir imagen desde el equipo"
                             disabled={isDisabled}
@@ -182,7 +181,7 @@ function CardFront({
                 {/* VISUALIZADOR DE IMAGEN / LOADING */}
                 {isImageLoading || isUploading ? (
                     <img
-                        src="/loading.gif" 
+                        src="/loading.gif"
                         alt="Loading..."
                         style={{ width: '100px', height: '100px' }}
                     />
@@ -194,9 +193,9 @@ function CardFront({
                         alt={cardData.name || 'Flashcard image'}
                     />
                 ) : (
-                    <img 
-                        src="https://placehold.co/600x400/e9ecef/6c757d?text=No+Image" 
-                        alt="Image not available" 
+                    <img
+                        src="https://placehold.co/600x400/e9ecef/6c757d?text=No+Image"
+                        alt="Image not available"
                         className={styles.noImagePlaceholderImg}
                     />
                 )}
