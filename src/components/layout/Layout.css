@@ -9,6 +9,10 @@
     /* Unified background color */
     border-bottom: 1px solid #CBD5E0;
     /* Separator line */
+    background-color: #EBF4FF;
+    /* Unified background color */
+    border-bottom: 1px solid #CBD5E0;
+    /* Separator line */
     position: absolute;
     /* Absolute relative to main-content */
     top: 0;
@@ -19,24 +23,24 @@
     transform: translateY(-76px);
     /* Hide using transform */
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transition-delay: 0.1s;
-    /* Add delay before hiding to prevent accidental closes */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.app-header:hover,
-.app-header.sidebar-open {
+.app-header.sidebar-open,
+.app-header.manual-open {
     transform: translateY(0);
     /* Slide down */
-    transition-delay: 0s;
-    /* Open immediately */
 }
 
-/* Push content down when header opens OR sidebar is open */
-.app-header:hover+.page-content,
-.app-header.sidebar-open+.page-content {
+/* Push content down when header opens OR sidebar is open OR manually opened */
+.app-header.sidebar-open+.page-content,
+.app-header.manual-open+.page-content {
     padding-top: 80px;
 }
+
+/* Remove manual hover/transform styles */
+
+/* Sibling selector removed as Headroom handles space */
 
 .header-handle {
     position: absolute;
@@ -57,13 +61,20 @@
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     opacity: 1;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.3s ease;
 }
 
-.app-header:hover .header-handle {
-    opacity: 0;
-    /* Hide handle when header is fully visible */
-    pointer-events: none;
+/* Rotate handle when open */
+.app-header.manual-open .header-handle svg {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Ensure handle stays visible */
+.app-header.sidebar-open .header-handle,
+.app-header.manual-open .header-handle {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .header-controls {
@@ -129,7 +140,8 @@
     left: 0;
     z-index: 200;
     transition: transform 0.3s ease;
-    padding-top: 70px;
+    padding-top: 0px;
+    /* Reduced from 70px to align with header menu */
     /* Espacio para el header */
     box-sizing: border-box;
 }

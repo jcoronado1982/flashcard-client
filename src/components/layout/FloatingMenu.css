@@ -4,6 +4,8 @@
     flex-direction: column;
     align-items: center;
     z-index: 200;
+    padding-right: 16px;
+    /* Add padding to push button left, allowing space for centered menu */
 }
 
 .floatingMainButton {
@@ -31,13 +33,14 @@
 
 .floatingOptions {
     position: absolute;
-    top: calc(100% + 12px);
-    right: 0;
+    top: calc(100% + 24px);
+    /* Revert to Center alignment */
+    left: calc(50% - 10px);
+    transform: translateX(-50%) translateY(-10px);
     display: flex;
     flex-direction: column;
     gap: 8px;
     opacity: 0;
-    transform: translateY(-10px);
     pointer-events: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     background: white;
@@ -52,7 +55,7 @@
 
 .floatingOptions.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 

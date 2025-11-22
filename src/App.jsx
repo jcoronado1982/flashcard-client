@@ -7,6 +7,7 @@ import FlashcardPage from './pages/FlashcardPage';
 import GrammarPage from './pages/GrammarPage';
 import TestPage from './pages/TestPage';
 import Header from './components/layout/Header';
+// import Headroom from 'react-headroom'; // Removed as per user request for manual control
 
 const API_URL = 'http://127.0.0.1:8000';
 

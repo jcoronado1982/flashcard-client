@@ -47,8 +47,15 @@ export default function Header({
         );
     };
 
+    // Estado local para el toggle manual del handle
+    const [isManualOpen, setIsManualOpen] = React.useState(false);
+
+    const toggleHeader = () => {
+        setIsManualOpen(!isManualOpen);
+    };
+
     return (
-        <header className={`app-header ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+        <header className={`app-header ${isSidebarOpen ? 'sidebar-open' : ''} ${isManualOpen ? 'manual-open' : ''}`}>
             <button onClick={onMenuClick} className="hamburger-btn">
                 <HamburgerIcon />
             </button>
@@ -78,7 +85,7 @@ export default function Header({
             </div>
 
             {/* Handle visual para indicar que la barra está ahí */}
-            <div className="header-handle">
+            <div className="header-handle" onClick={toggleHeader}>
                 <ChevronDownIcon />
             </div>
 

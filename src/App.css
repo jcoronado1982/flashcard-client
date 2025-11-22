@@ -12,7 +12,7 @@
     /* El fondo que tenías, ahora aplicado al área de contenido */
     background: #EBF4FF;
     /* Restoring solid blue background */
-    min-height: 100vh;
+    /* min-height: 100vh; <-- REMOVED to allow natural flow */
     position: relative;
     /* For absolute header */
 }
@@ -51,11 +51,13 @@
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 40px 20px 20px 20px;
+    padding: 60px 20px 20px 20px;
     /* Increased top padding */
     box-sizing: border-box;
     /* Ocupa al menos la altura de la página (viewport menos el header de 80px) */
-    min-height: calc(100vh - 80px);
+    /* min-height: calc(100vh - 80px); <-- REMOVED */
+    padding-bottom: 40px;
+    /* Ensure space at bottom */
 }
 
 /* --- FLASHCARD CENTRADA (Sin Cambios) --- */

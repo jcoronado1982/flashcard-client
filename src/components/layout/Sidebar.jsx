@@ -34,11 +34,13 @@ export default function Sidebar({ isOpen }) {
                                     to="/flashcard"
                                     // La opción Card se activa si la ruta es /flashcard o /flashcard/card
                                     className={({ isActive }) => isActive || location.pathname === '/flashcard/card' ? 'nav-link active' : 'nav-link'}
+                                    style={{ paddingLeft: '40px' }} // Add indentation for hierarchy
                                     end
                                 >
                                     <FiCreditCard /> Card
                                 </NavLink>
                             </li>
+                            {/* 
                             <li>
                                 <NavLink
                                     to="/flashcard/test"
@@ -47,10 +49,12 @@ export default function Sidebar({ isOpen }) {
                                     <FiCheckSquare /> Test
                                 </NavLink>
                             </li>
+                             */}
                         </ul>
                     </li>
 
                     {/* 2. Item Principal: Grammar - ¡Al mismo nivel que Flashcards! */}
+                    {/* 
                     <li>
                         <NavLink
                             to="/grammar"
@@ -59,6 +63,7 @@ export default function Sidebar({ isOpen }) {
                             <FiBook /> Grammar
                         </NavLink>
                     </li>
+                     */}
 
                     {/* ❌ ELIMINADO: La opción principal "Test" ya no existe según la estructura solicitada. */}
                 </ul>
