@@ -6,42 +6,43 @@ import CardFront from './CardFront.jsx';
 import CardBack from './CardBack.jsx';
 
 function Flashcard({
-    cardData, onOpenIpaModal, setAppMessage, updateCardImagePath, 
+    cardData, onOpenIpaModal, setAppMessage, updateCardImagePath,
     // --- ¡PROP NUEVA AÑADIDA! ---
     currentCategory,
     currentDeckName, setIsAudioLoading, selectedTone
 }) {
-    
+
     const [isFlipped, setIsFlipped] = useState(false);
     const [blurredState, setBlurredState] = useState({});
 
     // --- ¡HOOK MODIFICADO! ---
-    const { 
-        playAudio, 
-        activeAudioText, 
-        highlightedWordIndex 
+    const {
+        playAudio,
+        activeAudioText,
+        highlightedWordIndex,
+        isGeneratingAudio // <-- ¡AÑADIDO!
     } = useAudioPlayback({
-        setAppMessage, 
-        setIsAudioLoading, 
+        setAppMessage,
+        setIsAudioLoading,
         currentCategory, // <-- ¡AÑADIDO!
-        currentDeckName, 
-        selectedTone, 
+        currentDeckName,
+        selectedTone,
         verbName: cardData?.name
     });
 
     // --- ¡HOOK MODIFICADO: AÑADIMOS uploadImage! ---
-    const { 
-        isImageLoading, 
-        imageUrl, 
+    const {
+        isImageLoading,
+        imageUrl,
         imageRef,
         displayImageForIndex,
         deleteImage,
         uploadImage // <-- ¡Función AÑADIDA!
     } = useImageGeneration({
-        cardData, 
+        cardData,
         currentCategory, // <-- ¡AÑADIDO!
-        currentDeckName, 
-        setAppMessage, 
+        currentDeckName,
+        setAppMessage,
         updateCardImagePath
     });
 
@@ -84,10 +85,11 @@ function Flashcard({
                     displayImageForIndex={displayImageForIndex}
                     deleteImage={deleteImage}
                     uploadImage={uploadImage} // <-- ¡PROP PASADA A CardFront!
+                    isGeneratingAudio={isGeneratingAudio} // <-- ¡PROP PASADA A CardFront!
                 />
-                
+
                 <CardBack cardData={cardData} />
-                
+
             </div>
         </div>
     );

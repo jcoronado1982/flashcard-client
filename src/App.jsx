@@ -9,7 +9,9 @@ import TestPage from './pages/TestPage';
 import Header from './components/layout/Header';
 // import Headroom from 'react-headroom'; // Removed as per user request for manual control
 
-const API_URL = 'http://127.0.0.1:8000';
+// --- ¡CAMBIO REALIZADO! ---
+// Importamos la URL desde el archivo de configuración centralizado
+import { API_URL } from './config/api';
 
 // --- ¡CAMBIO 1: Definir la llave para localStorage! ---
 const LAST_CATEGORY_KEY = 'flashcards_last_category';
@@ -241,4 +243,3 @@ function App() {
   );
 }
 export default App;
-

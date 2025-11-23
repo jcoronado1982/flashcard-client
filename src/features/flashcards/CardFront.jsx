@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'; // <-- AGREGAMOS useState aquí
 import styles from './Flashcard.module.css';
 import HighlightedText from './HighlightedText';
-// 🚀 Importamos los iconos necesarios, incluyendo FaUpload
-import { FaHeadphones, FaTimes, FaUpload } from 'react-icons/fa'; // <-- Importamos FaUpload
+// 🚀 Importamos los iconos necesarios, incluyendo FaUpload y FaSpinner
+import { FaHeadphones, FaTimes, FaUpload, FaSpinner } from 'react-icons/fa'; // <-- Importamos FaSpinner
 import MTGCard from '../../components/MTGCard';
 
 function CardFront({
@@ -19,7 +19,8 @@ function CardFront({
     displayImageForIndex,
     // --- ¡NUEVAS PROPS RECIBIDAS! ---
     deleteImage,
-    uploadImage // <-- ¡Recibimos la nueva función!
+    uploadImage, // <-- ¡Recibimos la nueva función!
+    isGeneratingAudio // <-- ¡Recibimos el estado de carga!
 }) {
     // Necesitamos este estado para manejar si el archivo se está procesando
     const [isUploading, setIsUploading] = useState(false);
@@ -44,8 +45,8 @@ function CardFront({
         e.target.value = null;
     };
 
-    // Deshabilitar botones si hay carga de IA o estamos subiendo
-    const isDisabled = isImageLoading || isUploading;
+    // Deshabilitar botones si hay carga de IA o estamos subiendo o generando audio
+    const isDisabled = isImageLoading || isUploading || isGeneratingAudio;
 
     // Handler para activar el click del input file
     const triggerUpload = (e) => {
@@ -60,15 +61,15 @@ function CardFront({
 
             {/* Botón de sonido principal (altavoz grande) */}
             <button
-                className={styles.soundButton}
+                className={`${styles.soundButton} ${isGeneratingAudio && activeAudioText === cardData.name ? styles.loadingAudioBtn : ''}`}
                 onClick={(e) => {
                     e.stopPropagation();
                     playAudio(cardData.name);
                     displayImageForIndex(0);
                 }}
-                disabled={isDisabled}
+                disabled={isGeneratingAudio}
             >
-                🔊
+                {isGeneratingAudio && activeAudioText === cardData.name ? <FaSpinner className={styles.spinner} /> : '🔊'}
             </button>
 
             <h2 className={styles.name}>
@@ -101,6 +102,7 @@ function CardFront({
                     {cardData.definitions?.map((def, di) => (
                         <li key={di}>
                             <button
+                                className={isGeneratingAudio && activeAudioText === def.usage_example ? styles.loadingAudioBtn : ''}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     playAudio(def.usage_example);
@@ -108,7 +110,7 @@ function CardFront({
                                 }}
                                 disabled={isDisabled}
                             >
-                                🔊
+                                {isGeneratingAudio && activeAudioText === def.usage_example ? <FaSpinner className={styles.spinner} /> : '🔊'}
                             </button>
                             <div
                                 className={blurredState[di] ? styles.blurredText : ''}
@@ -183,7 +185,7 @@ function CardFront({
                     <img
                         src="/loading.gif"
                         alt="Loading..."
-                        style={{ width: '100px', height: '100px' }}
+                        style={{ width: '200px', height: '200px' }}
                     />
                 ) : imageUrl ? (
                     <img

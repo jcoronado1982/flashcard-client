@@ -1,67 +1,48 @@
-// src/pages/FlashcardPage.jsx
-
 import React, { useState, useEffect, useCallback } from 'react';
 import Flashcard from '../features/flashcards/Flashcard';
 import Controls from '../features/flashcards/Controls';
 import IpaModal from '../features/flashcards/IpaModal';
 import PhonicsModal from '../features/flashcards/PhonicsModal';
-// 1. Importamos el selector de categorías para restaurar el carrusel
 import CategorySelector from '../features/flashcards/CategorySelector';
 
-const API_URL = 'http://127.0.0.1:8000';
+// Importación de la configuración centralizada
+import { API_URL } from '../config/api';
 
-// --- ¡CAMBIO 1: Definir la llave base para localStorage! ---
 const LAST_DECK_KEY_PREFIX = 'flashcards_last_deck_';
 
-// --- Aceptamos todas las props de App.jsx y del Carrusel ---
 export default function FlashcardPage({
-    currentCategory,     // Prop de App (categoría seleccionada actualmente)
-    appMessage,          // Prop de App (para mensajes de feedback)
-    setAppMessage,       // Prop de App (para enviar mensajes de feedback)
-    isAudioLoading,      // Prop de App (estado de carga global de audio)
-    setIsAudioLoading,   // Prop de App (para actualizar el estado de carga de audio)
-    selectedTone,        // Prop de App (tono de voz seleccionado)
-    isLoadingCategories, // Prop de App (la carga inicial de categorías)
-    categories,          // Prop de App (lista de categorías)
-    onCategoryChange,    // Prop de App (handler para cambiar la categoría)
-    toneOptions,         // Prop de App (opciones de tono)
-    onToneChange,        // Prop de App (handler para cambiar tono)
-
-    // Props de Modales (Lifted State)
+    currentCategory,
+    appMessage,
+    setAppMessage,
+    isAudioLoading,
+    setIsAudioLoading,
+    selectedTone,
+    isLoadingCategories,
+    categories,
+    onCategoryChange,
+    toneOptions,
+    onToneChange,
+    // Props de Modales
     isIpaModalOpen,
     onCloseIpaModal,
     onOpenIpaModal,
     isPhonicsModalOpen,
     onClosePhonicsModal,
     onOpenPhonicsModal,
-
-    // Props de UI (Lifted State)
+    // Props de UI
     isCategorySelectorVisible,
     onCloseCategorySelector
 }) {
 
-    // --- ESTADOS LOCALES (Solo para decks y tarjetas) ---
+    // --- ESTADOS LOCALES ---
     const [masterData, setMasterData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    const [isDeckLoading, setIsDeckLoading] = useState(true); // Carga de decks/tarjetas
-
-    // 🔴 ESTADO CLAVE: Visibilidad de los modales (ELIMINADO - LIFTED TO APP)
-    // const [isIpaModalOpen, setIsIpaModalOpen] = useState(false);
-    // const [isPhonicsModalOpen, setIsPhonicsModalOpen] = useState(false);
-
-    // 🔴 ESTADO CLAVE: Visibilidad del carrusel de categorías (ELIMINADO - LIFTED TO APP)
-    // const [isCategorySelectorVisible, setIsCategorySelectorVisible] = useState(false);
-
+    const [isDeckLoading, setIsDeckLoading] = useState(true);
     const [deckNames, setDeckNames] = useState([]);
     const [currentDeckName, setCurrentDeckName] = useState(null);
 
-    // 🎯 FUNCIÓN AÑADIDA: Para alternar la visibilidad del carrusel (ELIMINADO - LIFTED TO APP)
-    // const handleToggleCategorySelector = ...
-
-
-    // --- LÓGICA DE DATOS (Mantenida, basada en tu código) ---
+    // --- LÓGICA DE DATOS ---
 
     const fetchFlashcards = useCallback(async (category, deck) => {
         if (!category || !deck) return;
@@ -141,14 +122,12 @@ export default function FlashcardPage({
                 setDeckNames(rawDeckNames);
 
                 if (rawDeckNames.length > 0) {
-
-                    // --- ¡CAMBIO 2: Lógica para cargar el deck guardado! ---
+                    // Lógica para cargar el deck guardado
                     let deckToLoad = rawDeckNames[0]; // Por defecto, el primero
                     try {
                         const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
                         const savedDeck = localStorage.getItem(storageKey);
 
-                        // Comprobar si el deck guardado es válido y existe en la lista actual
                         if (savedDeck && rawDeckNames.includes(savedDeck)) {
                             deckToLoad = savedDeck;
                         }
@@ -156,7 +135,6 @@ export default function FlashcardPage({
                         console.warn("No se pudo leer el deck de localStorage:", e);
                     }
                     setCurrentDeckName(deckToLoad);
-                    // --------------------------------------------------
 
                 } else {
                     setAppMessage({ text: `No se encontraron decks en ${currentCategory}.`, isError: true });
@@ -187,21 +165,18 @@ export default function FlashcardPage({
         if (newDeck !== currentDeckName) {
             setCurrentDeckName(newDeck);
 
-            // --- ¡CAMBIO 3: Guardar el deck seleccionado! ---
+            // Guardar el deck seleccionado
             try {
-                // Usamos la categoría actual para crear una llave única
                 const storageKey = `${LAST_DECK_KEY_PREFIX}${currentCategory}`;
                 localStorage.setItem(storageKey, newDeck);
             } catch (e) {
                 console.error("No se pudo guardar el deck en localStorage:", e);
             }
-            // ---------------------------------------------
 
             setMasterData([]);
             setFilteredData([]);
             setIsDeckLoading(true);
         }
-        // --- ¡CAMBIO 4: Añadir currentCategory a las dependencias! ---
     }, [currentDeckName, currentCategory]);
 
 
@@ -269,7 +244,6 @@ export default function FlashcardPage({
     const handleReset = useCallback(async () => {
         if (!currentCategory || !currentDeckName) return;
 
-        // Usar window.confirm para confirmación más simple
         if (window.confirm(`¿Estás seguro de que quieres resetear el progreso de '${currentDeckName}'?`)) {
             try {
                 setAppMessage({ text: 'Reseteando...', isError: false });
@@ -301,7 +275,6 @@ export default function FlashcardPage({
 
 
     const updateCardImagePath = useCallback((cardId, newPath, defIndex) => {
-        // ... (Lógica de actualización de ruta de imagen sin cambios)
         console.log(`App: Actualizando imagePath para cardId=${cardId}, defIndex=${defIndex}, newPath=${newPath}`);
         setMasterData(prevMasterData =>
             prevMasterData.map(card => {
@@ -354,9 +327,6 @@ export default function FlashcardPage({
     return (
         <div className="flashcard-page-wrapper">
 
-            {/* 🚀 FloatingMenu MOVIDO A HEADER */}
-
-            {/* Renderizado Condicional del Carrusel */}
             {isCategorySelectorVisible && (
                 <CategorySelector
                     categories={categories}
@@ -370,7 +340,6 @@ export default function FlashcardPage({
             <div className="app-container">
                 <div className="flashcard-main-area">
 
-                    {/* Lógica de Carga y Mensaje */}
                     {isDeckLoading || !currentCard ? (
                         !currentCategory ? (
                             <div className="all-done-message">
@@ -385,14 +354,11 @@ export default function FlashcardPage({
                                 ¡Felicidades! Has completado el deck '{currentDeckName}'. 🎉
                             </div>
                         ) : (
-                            // Componente Flashcard
                             <Flashcard
                                 key={`${currentCategory}-${currentDeckName}-${currentCard.id}`}
                                 cardData={currentCard}
-                                // Handlers de Modales pasados al componente Flashcard
                                 onOpenIpaModal={onOpenIpaModal}
                                 onOpenPhonicsModal={onOpenPhonicsModal}
-
                                 setAppMessage={setAppMessage}
                                 updateCardImagePath={updateCardImagePath}
                                 currentCategory={currentCategory}
@@ -403,17 +369,19 @@ export default function FlashcardPage({
                         )
                     )}
 
-                    {/* Mensaje de estado debajo de la flashcard y encima de la lista */}
                     {appMessage && appMessage.text && (
                         <div id="message" className={appMessage.isError ? 'error-message' : 'info-message'} style={{
-                            margin: '16px auto 10px auto',
-                            maxWidth: '600px',
-                            textAlign: 'center',
+                            marginTop: '10px',
                             padding: '10px',
-                            backgroundColor: appMessage.isError ? '#FEE' : '#E3F2FD',
                             borderRadius: '8px',
-                            fontSize: '0.95em',
-                            fontWeight: '500'
+                            textAlign: 'center',
+                            backgroundColor: appMessage.isError ? 'rgba(255, 0, 0, 0.2)' : 'transparent',
+                            color: appMessage.isError ? '#ffcccc' : 'rgb(36 31 31 / 50%)',
+                            border: appMessage.isError ? '1px solid rgba(255, 0, 0, 0.3)' : 'none',
+                            marginBottom: '15px',
+                            width: '100%',
+                            maxWidth: '600px',
+                            backdropFilter: appMessage.isError ? 'blur(4px)' : 'none'
                         }}>
                             {appMessage.text}
                         </div>
@@ -426,20 +394,16 @@ export default function FlashcardPage({
                         onReset={handleReset}
                         currentIndex={currentIndex}
                         totalCards={filteredData.length}
-
                         deckNames={deckNames}
                         currentDeckName={currentDeckName}
                         onDeckChange={handleDeckChange}
-
                         isAudioLoading={isAudioLoading}
                     />
                 </div>
             </div>
 
-            {/* Renderizado Condicional del Modal IPA */}
             {isIpaModalOpen && <IpaModal onClose={onCloseIpaModal} />}
 
-            {/* Renderizado Condicional del Modal Phonics */}
             {isPhonicsModalOpen && (
                 <PhonicsModal
                     onClose={onClosePhonicsModal}
@@ -453,4 +417,3 @@ export default function FlashcardPage({
         </div>
     );
 }
-

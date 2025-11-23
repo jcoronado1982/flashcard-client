@@ -142,7 +142,7 @@
 
 .allExamplesContainer li div {
     line-height: 1.4;
-    font-size: 1.25em;
+    font-size: 1.15em;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -530,4 +530,33 @@
 .soundButtonMtg:hover {
     color: #000;
     transform: scale(1.1);
+}
+
+/* --- Spinner Animation --- */
+.spinner {
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    font-size: 4em;
+    /* 200% más grande */
+}
+
+.loadingAudioBtn {
+    opacity: 0.4;
+    /* Transparente por defecto al cargar */
+    transition: opacity 0.3s ease;
+}
+
+.loadingAudioBtn:hover {
+    opacity: 1 !important;
+    /* Opacidad total al pasar el mouse */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
