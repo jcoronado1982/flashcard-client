@@ -111,7 +111,7 @@ function ToneSelector({ toneOptions, selectedTone, onToneChange }) {
             <label htmlFor="tone-select" className={styles.toneSelectorLabel}>
                 Tono Voz:
             </label>
-            <div style={{ minWidth: '180px' }}>
+            <div className={styles.selectWrapper}>
                 <Select
                     inputId="tone-select"
                     value={selectedOption}

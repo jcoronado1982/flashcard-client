@@ -3,14 +3,9 @@ import './Layout.css';
 import ToneSelector from '../../features/flashcards/ToneSelector';
 import FloatingMenu from '../../components/layout/FloatingMenu';
 
-// Un simple SVG para el icono de hamburguesa
-const HamburgerIcon = () => (
-    <svg viewBox="0 0 100 80" width="24" height="24" fill="#838b9d">
-        <rect width="100" height="15" rx="8"></rect>
-        <rect y="30" width="100" height="15" rx="8"></rect>
-        <rect y="60" width="100" height="15" rx="8"></rect>
-    </svg>
-);
+import { FaBars } from 'react-icons/fa';
+
+// ... (imports)
 
 // Icono de flecha para el handle
 const ChevronDownIcon = () => (
@@ -45,7 +40,7 @@ export default function Header({
     return (
         <header className={`app-header ${isSidebarOpen ? 'sidebar-open' : ''} ${isManualOpen ? 'manual-open' : ''}`}>
             <button onClick={onMenuClick} className="hamburger-btn">
-                <HamburgerIcon />
+                <FaBars size={24} color="#4A5568" />
             </button>
 
             {/* 3. El logo se mantiene a la izquierda */}

@@ -58,7 +58,7 @@
 
 .name {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: 3.5em;
+    font-size: 3em;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 10px 0;
@@ -269,8 +269,8 @@
     position: absolute;
     background-color: rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
-    top: 30px;
-    right: 30px;
+    top: 25px;
+    right: 20px;
     color: #fff;
     width: 44px;
     height: 44px;

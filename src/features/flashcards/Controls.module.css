@@ -310,3 +310,31 @@
     text-align: center;
     line-height: 46px;
 }
+
+@media (max-width: 768px) {
+
+    .nav,
+    .prevCardBtn,
+    .nextCardBtn,
+    .actionBtn,
+    .resetButton,
+    .correctButton {
+        width: 60px;
+        height: 60px;
+    }
+
+    .nav svg,
+    .prevCardBtn svg,
+    .nextCardBtn svg,
+    .actionBtn svg,
+    .resetButton svg,
+    .correctButton svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .cardCounter {
+        line-height: 60px;
+        font-size: 1.5em;
+    }
+}

@@ -63,4 +63,12 @@
     .toneSelectorLabel {
         display: none;
     }
+
+    .selectWrapper {
+        min-width: 140px !important;
+    }
+}
+
+.selectWrapper {
+    min-width: 180px;
 }
