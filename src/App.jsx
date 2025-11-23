@@ -17,11 +17,11 @@ import { API_URL } from './config/api';
 const LAST_CATEGORY_KEY = 'flashcards_last_category';
 
 const toneOptions = [
-  { label: "Presentador", value: "Read this like a news anchor: " },
-  { label: "Casual", value: "Read this casually, like talking to a friend: " },
-  { label: "Claro", value: "Read clearly: " },
-  { label: "Formal", value: "Say in a formal and informative tone: " },
-  { label: "Rápido", value: "Say quickly and urgently: " }
+  { id: 'presenter', label: "Presentador", value: "Read this like a news anchor: " },
+  { id: 'casual', label: "Casual", value: "Read this casually, like talking to a friend: " },
+  { id: 'clear', label: "Claro", value: "Read clearly: " },
+  { id: 'formal', label: "Formal", value: "Say in a formal and informative tone: " },
+  { id: 'fast', label: "Rápido", value: "Say quickly and urgently: " }
 ];
 
 const CATEGORY_ORDER = [
@@ -158,7 +158,14 @@ function App() {
         console.error("No se pudo guardar la categoría en localStorage:", e);
       }
     }
-  }, [currentCategory]); // Se dispara cada vez que 'currentCategory' cambia
+  }, [currentCategory]);
+  const [language, setLanguage] = useState('en'); // Default language
+
+  // ...
+
+  const handleLanguageChange = useCallback((lang) => {
+    setLanguage(lang);
+  }, []);
 
   const handleToneChange = useCallback((newToneValue) => {
     setSelectedTone(newToneValue);
@@ -199,6 +206,8 @@ function App() {
           onToggleCategories={handleToggleCategorySelector}
           onOpenIpaModal={handleOpenIpaModal}
           onOpenPhonicsModal={handleOpenPhonicsModal}
+          language={language}
+          onLanguageChange={handleLanguageChange}
         />
 
         <main className="page-content">
@@ -229,7 +238,8 @@ function App() {
 
                   // Props de Tono (ya no se usan en Controls, pero Flashcard podría necesitarlas si usa useAudioPlayback)
                   toneOptions={toneOptions}
-                // onToneChange={handleToneChange} // Ya no se necesita en FlashcardPage si el control está en Header
+                  // onToneChange={handleToneChange} // Ya no se necesita en FlashcardPage si el control está en Header
+                  language={language} // Pass language prop
                 />
               }
             />

@@ -2,10 +2,8 @@ import React from 'react';
 import './Layout.css';
 import ToneSelector from '../../features/flashcards/ToneSelector';
 import FloatingMenu from '../../components/layout/FloatingMenu';
-
 import { FaBars } from 'react-icons/fa';
-
-// ... (imports)
+import LanguageSelector from '../common/LanguageSelector';
 
 // Icono de flecha para el handle
 const ChevronDownIcon = () => (
@@ -28,7 +26,9 @@ export default function Header({
     onToneChange,
     onToggleCategories,
     onOpenIpaModal,
-    onOpenPhonicsModal
+    onOpenPhonicsModal,
+    language,
+    onLanguageChange
 }) {
     // Estado local para el toggle manual del handle
     const [isManualOpen, setIsManualOpen] = React.useState(false);
@@ -47,18 +47,31 @@ export default function Header({
             <AppLogo />
 
             <div className="header-controls">
+
+
                 <div className="tone-selector-wrapper">
                     <ToneSelector
                         toneOptions={toneOptions}
                         selectedTone={selectedTone}
                         onToneChange={onToneChange}
+                        language={language}
+                    />
+                </div>
+
+                {/* Language Selector */}
+                <div className="language-selector-wrapper">
+                    <LanguageSelector
+                        currentLanguage={language}
+                        onLanguageChange={onLanguageChange}
                     />
                 </div>
                 <div className="menu-wrapper">
                     <FloatingMenu
+                        key={language}
                         onToggleCategories={onToggleCategories}
                         onOpenIpaModal={onOpenIpaModal}
                         onOpenPhonicsModal={onOpenPhonicsModal}
+                        language={language}
                     />
                 </div>
             </div>

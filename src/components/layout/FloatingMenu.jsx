@@ -20,13 +20,20 @@ const DIPHTHONGS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=421s";
 const CONSONANTS_URL = "https://www.youtube.com/watch?v=JuFBtVFbtkA&t=600s";
 
 
+import { translations } from '../../config/translations';
+
+// ... (imports)
+
 // Aceptamos las props para los modales
 const FloatingMenu = ({
   onToggleCategories,
   onOpenIpaModal,
-  onOpenPhonicsModal
+  onOpenPhonicsModal,
+  language = 'en'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const t = translations[language].floatingMenu;
+  console.log('FloatingMenu language:', language);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -58,7 +65,6 @@ const FloatingMenu = ({
     setIsOpen(false); // Cierra el menú flotante
   };
 
-
   return (
     <div className="floatingMenuContainer">
       <button className="floatingMainButton" onClick={toggleMenu}>
@@ -70,53 +76,57 @@ const FloatingMenu = ({
         {/* 1. Categorías: Usamos FaList (Catálogo) */}
         <button
           className="floatingOption"
-          title="Catálogo de Categorías"
+          title={t.categories}
           onClick={handleCategoryClick}
         >
           <FaList size={18} />
+          <span className="optionLabel">{t.categories}</span>
         </button>
-
-
 
         {/* 3. Modal Phonics: Usamos FaBookOpen (Reglas de Fonética) */}
         <button
           className="floatingOption"
-          title="Reglas de Fonética (Pronunciación)"
+          title={t.phonics}
           onClick={handleOpenPhonics}
         >
           <FaBookOpen size={18} />
+          <span className="optionLabel">{t.phonics}</span>
         </button>
 
         {/* Vowels: Usamos FaVolumeUp */}
         <button
           className="floatingOption"
-          title="Vowels (Vocales)"
+          title={t.vowels}
           onClick={() => openExternalLink(VOWELS_URL)}
         >
-          <FaVolumeUp size={18} /> {/* Nuevo icono */}
+          <FaVolumeUp size={18} />
+          <span className="optionLabel">{t.vowels}</span>
         </button>
 
         {/* Diphthongs: Usamos FaBezierCurve */}
         <button
           className="floatingOption"
-          title="Diphthongs (Diptongos)"
+          title={t.diphthongs}
           onClick={() => openExternalLink(DIPHTHONGS_URL)}
         >
-          <FaBezierCurve size={18} /> {/* Nuevo icono */}
+          <FaBezierCurve size={18} />
+          <span className="optionLabel">{t.diphthongs}</span>
         </button>
 
         {/* Consonants: Usamos FaFont */}
         <button
           className="floatingOption"
-          title="Consonants (Consonantes)" // Corregido el title para más claridad
+          title={t.consonants}
           onClick={() => openExternalLink(CONSONANTS_URL)}
         >
           <FaFont size={18} />
+          <span className="optionLabel">{t.consonants}</span>
         </button>
 
         {/* 4. Configuración: Se mantiene FaCog */}
-        <button className="floatingOption" title="Configuración" onClick={() => setIsOpen(false)}>
+        <button className="floatingOption" title={t.settings} onClick={() => setIsOpen(false)}>
           <FaCog size={18} />
+          <span className="optionLabel">{t.settings}</span>
         </button>
 
       </div>

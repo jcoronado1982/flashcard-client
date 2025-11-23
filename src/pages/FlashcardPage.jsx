@@ -31,7 +31,8 @@ export default function FlashcardPage({
     onOpenPhonicsModal,
     // Props de UI
     isCategorySelectorVisible,
-    onCloseCategorySelector
+    onCloseCategorySelector,
+    language
 }) {
 
     // --- ESTADOS LOCALES ---
@@ -398,6 +399,7 @@ export default function FlashcardPage({
                         currentDeckName={currentDeckName}
                         onDeckChange={handleDeckChange}
                         isAudioLoading={isAudioLoading}
+                        language={language}
                     />
                 </div>
             </div>

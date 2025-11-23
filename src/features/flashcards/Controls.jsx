@@ -89,14 +89,20 @@ const customSelectStyles = {
     }),
 };
 
+import { translations } from '../../config/translations';
+
+// ... (customSelectStyles)
+
 function Controls({
     onPrev, onNext, onMarkLearned, onReset,
     currentIndex, totalCards,
     deckNames,
     onDeckChange,
     currentDeckName,
-    isAudioLoading
+    isAudioLoading,
+    language = 'en'
 }) {
+    const t = translations[language].controls;
 
     const isDisabled = totalCards === 0;
     const isBusy = isDisabled || isAudioLoading;
@@ -126,12 +132,11 @@ function Controls({
     return (
         <div className={styles.controlsWrapper}>
 
-            {/* --- SELECTOR DE DECK (AHORA ES EL PRIMERO) --- */}
-            {/* --- CONTROLES SUPERIORES: DECK --- */}
+            {/* ... (topControls) ... */}
             <div className={styles.topControls}>
                 <div className={styles.deckSelectorContainer}>
                     <label htmlFor="deck-select" className={styles.deckSelectorLabel}>
-                        Work:
+                        {t.work}
                     </label>
                     <div style={{ minWidth: '200px' }}>
                         <Select
@@ -150,19 +155,19 @@ function Controls({
 
             {/* --- CONTROLES (SIN CAMBIOS) --- */}
             <div className={styles.controls}>
-                <button className={styles.prevCardBtn} onClick={onPrev} disabled={isBusy} title="Anterior">
+                <button className={styles.prevCardBtn} onClick={onPrev} disabled={isBusy} title={t.prev}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
-                <button className={styles.resetButton} onClick={onReset} disabled={isResetDisabled} title={`Resetear deck: ${currentDeckName ? formatName(currentDeckName) : ''}`}>
+                <button className={styles.resetButton} onClick={onReset} disabled={isResetDisabled} title={`${t.reset}: ${currentDeckName ? formatName(currentDeckName) : ''}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                 </button>
                 <div className={styles.cardCounter}>
                     {totalCards > 0 ? `${currentIndex + 1} / ${totalCards}` : '0 / 0'}
                 </div>
-                <button className={styles.correctButton} onClick={onMarkLearned} disabled={isBusy} title="Marcar como Aprendida">
+                <button className={styles.correctButton} onClick={onMarkLearned} disabled={isBusy} title={t.correct}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 </button>
-                <button className={styles.nextCardBtn} onClick={onNext} disabled={isBusy} title="Siguiente">
+                <button className={styles.nextCardBtn} onClick={onNext} disabled={isBusy} title={t.next}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
             </div>

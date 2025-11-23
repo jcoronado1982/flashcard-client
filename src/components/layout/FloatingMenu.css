@@ -31,9 +31,9 @@
 .floatingOptions {
     position: absolute;
     top: calc(100% + 24px);
-    /* Revert to Center alignment */
-    left: calc(50% - 10px);
-    transform: translateX(-50%) translateY(-10px);
+    left: calc(50% - 50px);
+    /* Align to left edge of button */
+    transform: translateY(-10px);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -52,7 +52,7 @@
 
 .floatingOptions.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -78,12 +78,35 @@
     transform: scale(1.05);
 }
 
+.optionLabel {
+    display: none;
+    margin-left: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
     .floatingMenuContainer {
         padding-right: 0;
     }
 
+    /* Adjust positioning slightly for mobile if needed, but keep the vertical icon style */
     .floatingOptions {
-        top: calc(100% + 16px);
+        /* Keep it centered relative to button or adjust if it goes off screen */
+        /* For now, let's trust the desktop positioning or just ensure it doesn't overflow */
+        left: auto;
+        right: 0;
+        /* Align to right on mobile to prevent left overflow if button is on right edge */
+        transform: translateY(-10px);
+    }
+
+    .floatingOptions.show {
+        transform: translateY(0);
+    }
+
+    /* Ensure labels stay hidden like desktop */
+    .optionLabel {
+        display: none;
     }
 }

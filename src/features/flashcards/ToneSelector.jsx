@@ -90,11 +90,17 @@ const customStyles = {
     }),
 };
 
-function ToneSelector({ toneOptions, selectedTone, onToneChange }) {
-    // Transform toneOptions to react-select format
+import { translations } from '../../config/translations';
+
+// ... (customStyles)
+
+function ToneSelector({ toneOptions, selectedTone, onToneChange, language = 'en' }) {
+    const t = translations[language].toneSelector;
+
+    // Transform toneOptions to react-select format with translated labels
     const options = toneOptions.map(option => ({
         value: option.value,
-        label: option.label,
+        label: t.options[option.id] || option.label, // Fallback to original label if translation missing
     }));
 
     // Find the currently selected option
@@ -109,7 +115,7 @@ function ToneSelector({ toneOptions, selectedTone, onToneChange }) {
     return (
         <div className={styles.toneSelectorContainer}>
             <label htmlFor="tone-select" className={styles.toneSelectorLabel}>
-                Tono Voz:
+                {t.label}
             </label>
             <div className={styles.selectWrapper}>
                 <Select
@@ -119,7 +125,7 @@ function ToneSelector({ toneOptions, selectedTone, onToneChange }) {
                     options={options}
                     styles={customStyles}
                     isSearchable={false}
-                    placeholder="Selecciona tono..."
+                    placeholder={language === 'es' ? "Selecciona tono..." : "Select tone..."}
                 />
             </div>
         </div>
