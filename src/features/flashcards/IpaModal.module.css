@@ -1,30 +1,24 @@
-/* src/features/flashcards/IpaModal.module.css */
-
 .modal {
     display: flex;
-    /* Use flexbox to center content */
     justify-content: center;
     align-items: center;
     position: fixed;
-    /* Cover the whole screen */
     z-index: 1000;
-    /* Ensure it's on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    /* Allow scroll if content is too big */
     background-color: rgba(0, 0, 0, 0.6);
-    /* Semi-transparent black background */
+    backdrop-filter: blur(3px);
 }
 
 .modalContent {
     background: linear-gradient(135deg, #F7F5F0 0%, #FDFCFA 100%);
-    padding: 28px 32px 32px 32px;
+    padding: 12px 20px 20px 20px;
     border: none;
     width: 92%;
-    max-width: 620px;
+    max-width: 420px;
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
     position: relative;
@@ -32,12 +26,10 @@
     box-sizing: border-box;
 }
 
-/* Simple fade-in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: scale(0.95);
-        /* Slight scale up */
     }
 
     to {
@@ -74,35 +66,41 @@
     outline: none;
 }
 
-
 .ipaChart {
     position: relative;
     width: 100%;
-    max-width: 560px;
+    max-width: 364px;
+    /* Reduced by 35% (65% of 560px) */
     aspect-ratio: 530 / 370;
+    /* Asegúrate de tener esta imagen en tu carpeta public */
     background: url('/vowel_trapezoid.png') no-repeat center center / contain;
-    margin: 20px auto 16px auto;
+    margin: 0px auto;
     filter: brightness(0.96) contrast(1.05);
 }
 
-/* Base styles for ALL IPA buttons */
 .ipaBtn {
     position: absolute;
     background: #0066CC;
     border: 1.5px solid rgba(0, 102, 204, 0.3);
     border-radius: 10px;
     font-weight: 600;
-    font-size: 15px;
-    padding: 6px 10px;
+    font-size: 11px;
+    /* Scaled down */
+    padding: 4px 7px;
+    /* Scaled down */
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 102, 204, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
-    min-width: 28px;
+    min-width: 22px;
+    /* Scaled down */
     line-height: 1;
     margin: 0;
     font-family: inherit;
     color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ipaBtn:hover {
@@ -113,74 +111,144 @@
     z-index: 10;
 }
 
-/* --- ID Selectors for Positioning --- */
-/* These IDs are applied directly in the JSX and remain global. */
-/* They ONLY control top and left. The .ipaBtn class handles the appearance. */
-#ipa-i-long {
-    top: 13px;
-    left: 40px;
+/* --- Positioning IDs --- */
+/* :global permite que estos IDs funcionen con CSS Modules */
+/* src/features/flashcards/IpaModal.module.css */
+
+/* ... todo el código anterior ... */
+
+/* --- POSICIONAMIENTO CORREGIDO (IDS) --- */
+:global {
+
+    /* Front Vowels (Izquierda) - ESTÁN BIEN */
+    #ipa-i-long {
+        top: 3.5%;
+        left: 7.5%;
+    }
+
+    #ipa-i-short {
+        top: 16.2%;
+        left: 24.5%;
+    }
+
+    #ipa-e {
+        top: 60.5%;
+        left: 34.0%;
+    }
+
+    #ipa-ae {
+        top: 88.6%;
+        left: 46.8%;
+    }
+
+    /* Central Vowels (Centro) - AQUÍ ESTABA EL ERROR */
+    /* El Schwa neutro (About) */
+    #ipa-schwa {
+        top: 44.6%;
+        left: 52.8%;
+    }
+
+    /* CORRECCIÓN: El Schwa Rótico (Butter) - Lo movemos al centro junto al Schwa */
+    #ipa-schwa-r {
+        top: 44.6%;
+        left: 64.1%;
+    }
+
+    /* La R fuerte (Bird) - REMOVED */
+
+    /* La 'uh' (Cup) */
+    #ipa-uh {
+        top: 60.5%;
+        left: 68.7%;
+    }
+
+    /* Back Vowels (Derecha) - ESTÁN BIEN */
+    #ipa-u-long {
+        top: 3.5%;
+        left: 87.2%;
+    }
+
+    #ipa-u-short {
+        top: 16.2%;
+        left: 77.4%;
+    }
+
+    #ipa-o-long {
+        top: 48.6%;
+        left: 87.2%;
+    }
+
+    /* Bajé un pelín la 'ɔ' para separarla de la de arriba */
+    #ipa-a-long {
+        top: 89.2%;
+        left: 86.8%;
+    }
 }
 
-#ipa-i-short {
-    top: 60px;
-    left: 130px;
-}
+@media (max-width: 768px) {
+    .ipaBtn {
+        font-size: 10px;
+        padding: 3px 6px;
+        min-width: 20px;
+    }
 
-#ipa-e {
-    top: 224px;
-    left: 180px;
-}
+    :global {
+        /* Fine-tune positions for mobile if needed */
+        /* Example: Adjusting top/left slightly to match visual alignment */
 
-#ipa-ae {
-    top: 328px;
-    left: 248px;
-}
+        #ipa-i-long {
+            top: 3%;
+            left: 7%;
+        }
 
-#ipa-schwa {
-    top: 165px;
-    left: 300px;
-}
+        #ipa-i-short {
+            top: 16%;
+            left: 24%;
+        }
 
-/* Corresponds to 'ɚ' */
-#ipa-uh {
-    top: 224px;
-    left: 354px;
-}
+        #ipa-e {
+            top: 60%;
+            left: 34%;
+        }
 
-/* Corresponds to 'ʌ' */
-#ipa-a-long {
-    top: 330px;
-    left: 460px;
-}
+        #ipa-ae {
+            top: 88%;
+            left: 46%;
+        }
 
-/* Corresponds to 'ɑ' */
-#ipa-o-long {
-    top: 164px;
-    left: 462px;
-}
+        #ipa-schwa {
+            top: 44%;
+            left: 52%;
+        }
 
-/* Corresponds to 'ɔ' */
-#ipa-u-short {
-    top: 60px;
-    left: 410px;
-}
+        #ipa-schwa-r {
+            top: 44%;
+            left: 64%;
+        }
 
-/* Corresponds to 'ʊ' */
-#ipa-u-long {
-    top: 13px;
-    left: 462px;
-}
+        #ipa-uh {
+            top: 60%;
+            left: 68%;
+        }
 
-/* Corresponds to 'u' */
-#ipa-o-short {
-    top: 330px;
-    left: 400px;
-}
+        #ipa-u-long {
+            top: 3%;
+            left: 87%;
+        }
 
-/* Corresponds to 'ɒ' */
-#ipa-er {
-    top: 224px;
-    left: 318px;
-}
+        #ipa-u-short {
+            top: 16%;
+            left: 77%;
+        }
 
-/* Corresponds to 'ɝ' */
+        #ipa-o-long {
+            top: 48%;
+            left: 87%;
+        }
+
+        #ipa-a-long {
+            top: 89%;
+            left: 86%;
+        }
+    }
+}

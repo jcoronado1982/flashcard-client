@@ -115,65 +115,75 @@
 
 /* --- IDs para Posicionamiento Botones IPA (Sin Cambios) --- */
 /* (Se mantienen igual, ya que son relativos al modal) */
-#ipa-i-long {
-    top: 13px;
-    left: 40px;
-}
+   #ipa-i-long {
+        top: 3px;
+        left: 25px;
+    }
 
-#ipa-i-short {
-    top: 60px;
-    left: 130px;
-}
+    #ipa-i-short {
+        top: 60px;
+        left: 100px;
+    }
 
-#ipa-e {
-    top: 224px;
-    left: 180px;
-}
+    #ipa-e {
+        top: 140px;
+        left: 125px;
+    }
 
-#ipa-ae {
-    top: 328px;
-    left: 248px;
-}
+    #ipa-ae {
+        top: 226px;
+        left: 176px;
+    }
 
-#ipa-schwa {
-    top: 165px;
-    left: 300px;
-}
+    /* Central Vowels (Centro) - AQUÍ ESTABA EL ERROR */
+    /* El Schwa neutro (About) */
+    #ipa-schwa {
+        top: 108px;
+        left: 211px;
+    }
 
-#ipa-uh {
-    top: 224px;
-    left: 354px;
-}
+    /* CORRECCIÓN: El Schwa Rótico (Butter) - Lo movemos al centro junto al Schwa */
+    #ipa-schwa-r {
+        top: 115px;
+        left: 210px;
+    }
+    #ipa-o-short {
+        top: 106px;
+        left: 300px;
+    }
+    /* La R fuerte (Bird) - Ajustado ligeramente para dar aire */
+    #ipa-er {
+        top: 126px;
+        left: 214px;
+    }
 
-#ipa-a-long {
-    top: 330px;
-    left: 460px;
-}
+    /* La 'uh' (Cup) */
+    #ipa-uh {
+        top: 188px;
+        left: 262px;
+    }
 
-#ipa-o-long {
-    top: 164px;
-    left: 462px;
-}
+    /* Back Vowels (Derecha) - ESTÁN BIEN */
+    #ipa-u-long {
+        top: 3px;
+        left: 310px;
+    }
 
-#ipa-u-short {
-    top: 60px;
-    left: 410px;
-}
+    #ipa-u-short {
+        top: 50px;
+        left: 270px;
+    }
 
-#ipa-u-long {
-    top: 13px;
-    left: 462px;
-}
+    #ipa-o-long {
+        top: 174px;
+        left: 320px;
+    }
 
-#ipa-o-short {
-    top: 330px;
-    left: 400px;
-}
-
-#ipa-er {
-    top: 224px;
-    left: 318px;
-}
+    /* Bajé un pelín la 'ɔ' para separarla de la de arriba */
+    #ipa-a-long {
+        top: 232px;
+        left: 250px;
+    }
 
 /* --- CONTENEDOR DE ENLACES DE AYUDA (MODIFICADO) --- */
 .links-container {
