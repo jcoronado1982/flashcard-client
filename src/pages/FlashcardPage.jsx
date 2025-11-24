@@ -10,6 +10,10 @@ import { API_URL } from '../config/api';
 
 const LAST_DECK_KEY_PREFIX = 'flashcards_last_deck_';
 
+// --- CONFIGURACIÓN: Activar/Desactivar gestos de deslizamiento (Swipe) ---
+const ENABLE_MOBILE_SWIPE = true;  // Para dispositivos táctiles (Touch)
+const ENABLE_DESKTOP_SWIPE = false; // Para uso con ratón (Mouse)
+
 export default function FlashcardPage({
     currentCategory,
     appMessage,
@@ -42,6 +46,10 @@ export default function FlashcardPage({
     const [isDeckLoading, setIsDeckLoading] = useState(true);
     const [deckNames, setDeckNames] = useState([]);
     const [currentDeckName, setCurrentDeckName] = useState(null);
+
+    // --- SWIPE STATE ---
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
     // --- LÓGICA DE DATOS ---
 
@@ -276,7 +284,7 @@ export default function FlashcardPage({
 
 
     const updateCardImagePath = useCallback((cardId, newPath, defIndex) => {
-        console.log(`App: Actualizando imagePath para cardId=${cardId}, defIndex=${defIndex}, newPath=${newPath}`);
+
         setMasterData(prevMasterData =>
             prevMasterData.map(card => {
                 if (card.id === cardId) {
@@ -324,6 +332,52 @@ export default function FlashcardPage({
         return <div className="loading-container"><img src="/loading.gif" alt="Cargando categorías..." /></div>;
     }
 
+    // --- SWIPE LOGIC HANDLERS ---
+    // Minimum swipe distance (in px)
+    const minSwipeDistance = 50;
+
+    const onSwipeStart = (clientX) => {
+        setTouchEnd(null); // Reset touch end
+        setTouchStart(clientX);
+    };
+
+    const onSwipeMove = (clientX) => {
+        setTouchEnd(clientX);
+    };
+
+    const onSwipeEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            handlePrevCard();
+        } else if (isRightSwipe) {
+            handleNextCard();
+        }
+
+        // Reset state
+        setTouchStart(null);
+        setTouchEnd(null);
+    };
+
+    // Touch Handlers
+    const onTouchStart = (e) => onSwipeStart(e.targetTouches[0].clientX);
+    const onTouchMove = (e) => onSwipeMove(e.targetTouches[0].clientX);
+    const onTouchEnd = () => onSwipeEnd();
+
+    // Mouse Handlers
+    const onMouseDown = (e) => onSwipeStart(e.clientX);
+    const onMouseMove = (e) => {
+        if (touchStart !== null) {
+            onSwipeMove(e.clientX);
+        }
+    };
+    const onMouseUp = () => onSwipeEnd();
+    const onMouseLeave = () => onSwipeEnd();
+
     // --- RENDERIZADO (JSX) ---
     return (
         <div className="flashcard-page-wrapper">
@@ -339,7 +393,20 @@ export default function FlashcardPage({
             )}
 
             <div className="app-container">
-                <div className="flashcard-main-area">
+                <div
+                    className="flashcard-main-area"
+                    {...(ENABLE_MOBILE_SWIPE ? {
+                        onTouchStart,
+                        onTouchMove,
+                        onTouchEnd
+                    } : {})}
+                    {...(ENABLE_DESKTOP_SWIPE ? {
+                        onMouseDown,
+                        onMouseMove,
+                        onMouseUp,
+                        onMouseLeave
+                    } : {})}
+                >
 
                     {isDeckLoading || !currentCard ? (
                         !currentCategory ? (
@@ -373,13 +440,13 @@ export default function FlashcardPage({
                     {appMessage && appMessage.text && (
                         <div id="message" className={appMessage.isError ? 'error-message' : 'info-message'} style={{
                             marginTop: '10px',
-                            padding: '10px',
+                            padding: '10px 10px 0px 10px',
                             borderRadius: '8px',
                             textAlign: 'center',
                             backgroundColor: appMessage.isError ? 'rgba(255, 0, 0, 0.2)' : 'transparent',
                             color: appMessage.isError ? '#ffcccc' : 'rgb(36 31 31 / 50%)',
                             border: appMessage.isError ? '1px solid rgba(255, 0, 0, 0.3)' : 'none',
-                            marginBottom: '15px',
+                            marginBottom: '0px',
                             width: '100%',
                             maxWidth: '600px',
                             backdropFilter: appMessage.isError ? 'blur(4px)' : 'none'

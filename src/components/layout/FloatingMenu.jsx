@@ -33,7 +33,7 @@ const FloatingMenu = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const t = translations[language].floatingMenu;
-  console.log('FloatingMenu language:', language);
+
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
