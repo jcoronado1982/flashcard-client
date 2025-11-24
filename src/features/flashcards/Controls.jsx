@@ -110,7 +110,9 @@ function Controls({
 
     const formatName = (name) => {
         if (!name) return '';
-        const spacedName = name.replace(/[_-]/g, ' ');
+        // Remove leading numbers and whitespace (e.g., "1 basic" -> "basic")
+        const cleanName = name.replace(/^\d+\s*/, '');
+        const spacedName = cleanName.replace(/[_-]/g, ' ');
         return spacedName.charAt(0).toUpperCase() + spacedName.slice(1);
     };
 

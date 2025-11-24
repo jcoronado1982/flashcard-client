@@ -81,13 +81,9 @@ export function useImageGeneration({
             if (!data?.path) throw new Error("Sin ruta de imagen en la respuesta");
 
             // Añadimos timestamp para evitar caché vieja
-            const fullPath = `${API_URL}${data.path}?t=${Date.now()}`;
+            const fullPath = `${API_URL}${data.path}?t=${Date.now()}-${Math.random()}`;
 
             updateCardImagePath(cardData.id, data.path, defIndex);
-
-            if (imageRef.current) {
-                imageRef.current.src = fullPath;
-            }
 
             setImageUrl(fullPath);
 
@@ -127,11 +123,10 @@ export function useImageGeneration({
         const definition = cardData.definitions[defIndex];
 
         if (definition.imagePath) {
-            const fullPath = `${API_URL}${definition.imagePath}?t=${Date.now()}`;
+            const fullPath = `${API_URL}${definition.imagePath}?t=${Date.now()}-${Math.random()}`;
             const img = new Image();
             img.src = fullPath;
             img.onload = () => {
-                if (imageRef.current) imageRef.current.src = fullPath;
                 setImageUrl(fullPath);
                 setIsImageLoading(false);
             };
@@ -145,9 +140,21 @@ export function useImageGeneration({
     }, [cardData, generateAndLoadImage]);
 
 
-    // Carga inicial
+    // Ref para rastrear el ID de la tarjeta anterior
+    const prevCardIdRef = useRef(null);
+
+    // Carga inicial y cambio de tarjeta
     useEffect(() => {
         if (!cardData) return;
+
+        // Si es la misma tarjeta (mismo ID), NO reseteamos el estado
+        if (prevCardIdRef.current === cardData.id) {
+            return;
+        }
+
+        // Es una tarjeta nueva: actualizamos el ref y reseteamos
+        prevCardIdRef.current = cardData.id;
+
         setIsImageLoading(true);
         setImageUrl(null);
         imageAttempts.current = {};
@@ -258,13 +265,10 @@ export function useImageGeneration({
             const data = await res.json();
             if (!data?.path) throw new Error("Sin ruta de imagen en la respuesta de subida.");
 
-            const fullPath = `${API_URL}${data.path}?t=${Date.now()}`;
+            const fullPath = `${API_URL}${data.path}?t=${Date.now()}-${Math.random()}`;
 
             updateCardImagePath(cardData.id, data.path, currentDefIndex);
 
-            if (imageRef.current) {
-                imageRef.current.src = fullPath;
-            }
             setImageUrl(fullPath);
 
             setAppMessage({ text: 'Imagen subida y guardada con éxito.', isError: false });
