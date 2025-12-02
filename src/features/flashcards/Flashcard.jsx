@@ -56,6 +56,22 @@ function Flashcard({
         setAppMessage({ text: '', isError: false });
     }, [cardData, setAppMessage]);
 
+    // --- KEYBOARD FLIP ---
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                event.preventDefault(); // Prevent scrolling
+                setIsFlipped((prev) => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     const toggleBlur = (index) => {
         setBlurredState((prev) => ({ ...prev, [index]: !prev[index] }));
     };
