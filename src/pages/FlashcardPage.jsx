@@ -328,6 +328,25 @@ export default function FlashcardPage({
     const currentCard = filteredData.length > 0 ? filteredData[currentIndex] : null;
 
 
+    // --- KEYBOARD NAVIGATION ---
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowLeft') {
+                handlePrevCard();
+            } else if (event.key === 'ArrowRight') {
+                handleNextCard();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup listener on unmount
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handlePrevCard, handleNextCard]);
+
+
     if (isLoadingCategories) {
         return <div className="loading-container"><img src="/loading.gif" alt="Cargando categorías..." /></div>;
     }
@@ -378,23 +397,7 @@ export default function FlashcardPage({
     const onMouseUp = () => onSwipeEnd();
     const onMouseLeave = () => onSwipeEnd();
 
-    // --- KEYBOARD NAVIGATION ---
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'ArrowLeft') {
-                handlePrevCard();
-            } else if (event.key === 'ArrowRight') {
-                handleNextCard();
-            }
-        };
 
-        window.addEventListener('keydown', handleKeyDown);
-
-        // Cleanup listener on unmount
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [handlePrevCard, handleNextCard]);
 
     // --- RENDERIZADO (JSX) ---
     return (
