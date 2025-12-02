@@ -7,7 +7,7 @@ import LanguageSelector from '../common/LanguageSelector';
 
 // Icono de flecha para el handle
 const ChevronDownIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
 );

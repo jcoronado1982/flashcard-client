@@ -44,17 +44,17 @@
 
 .header-handle {
     position: absolute;
-    bottom: -24px;
+    bottom: -36px;
     /* Position below the header */
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 24px;
+    width: 80px;
+    height: 36px;
     background-color: #EBF4FF;
     border: 1px solid #CBD5E0;
     border-top: none;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
